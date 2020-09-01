@@ -100,6 +100,7 @@ class BrandDataFactory implements BrandDataFactoryInterface
     protected function fillFromBrand(BrandData $brandData, Brand $brand)
     {
         $brandData->name = $brand->getName();
+        $brandData->uuid = $brand->getUuid();
 
         /** @var \Shopsys\FrameworkBundle\Model\Product\Brand\BrandTranslation[] $translations */
         $translations = $brand->getTranslations();
