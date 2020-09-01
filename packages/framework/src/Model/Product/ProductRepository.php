@@ -375,6 +375,33 @@ class ProductRepository
     }
 
     /**
+     * @param int $domainId
+     * @param string $locale
+     * @param string $orderingModeId
+     * @param \Shopsys\FrameworkBundle\Model\Pricing\Group\PricingGroup $pricingGroup
+     * @param \Shopsys\FrameworkBundle\Model\Product\Brand\Brand $brand
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getAllListableTranslatedAndOrderedQueryBuilderForBrand(
+        int $domainId,
+        string $locale,
+        string $orderingModeId,
+        PricingGroup $pricingGroup,
+        Brand $brand
+    ): QueryBuilder {
+        $queryBuilder = $this->getListableForBrandQueryBuilder(
+            $domainId,
+            $pricingGroup,
+            $brand
+        );
+
+        $this->addTranslation($queryBuilder, $locale);
+        $this->applyOrdering($queryBuilder, $orderingModeId, $pricingGroup, $locale);
+
+        return $queryBuilder;
+    }
+
+    /**
      * @param \Shopsys\FrameworkBundle\Model\Product\Brand\Brand $brand
      * @param int $domainId
      * @param string $locale

@@ -10,6 +10,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
 use Overblog\GraphQLBundle\Relay\Connection\ConnectionBuilder;
 use Overblog\GraphQLBundle\Relay\Connection\Paginator;
 use Shopsys\FrameworkBundle\Model\Category\Category;
+use Shopsys\FrameworkBundle\Model\Product\Brand\Brand;
 use Shopsys\FrameworkBundle\Model\Product\Listing\ProductListOrderingConfig;
 use Shopsys\FrameworkBundle\Model\Product\ProductOnCurrentDomainFacadeInterface;
 
@@ -79,6 +80,27 @@ class ProductsResolver implements ResolverInterface, AliasedInterface
         });
 
         return $paginator->auto($argument, $this->productOnCurrentDomainFacade->getProductsCountOnCurrentDomain());
+    }
+
+    /**
+     * @param \Overblog\GraphQLBundle\Definition\Argument $argument
+     * @param \Shopsys\FrameworkBundle\Model\Product\Brand\Brand $brand
+     * @return \Overblog\GraphQLBundle\Relay\Connection\ConnectionInterface|object
+     */
+    public function resolveByBrand(Argument $argument, Brand $brand)
+    {
+        $this->setDefaultFirstOffsetIfNecessary($argument);
+
+        $paginator = new Paginator(function ($offset, $limit) use ($brand) {
+            return $this->productOnCurrentDomainFacade->getProductsByBrand(
+                $brand,
+                $limit,
+                $offset,
+                ProductListOrderingConfig::ORDER_BY_PRIORITY
+            );
+        });
+
+        return $paginator->auto($argument, $this->productOnCurrentDomainFacade->getProductsCountOnCurrentDomainByBrand($brand));
     }
 
     /**

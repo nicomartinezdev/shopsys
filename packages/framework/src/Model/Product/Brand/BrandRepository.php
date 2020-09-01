@@ -50,4 +50,20 @@ class BrandRepository
     {
         return $this->getBrandRepository()->findBy([], ['name' => 'asc']);
     }
+
+    /**
+     * @param string $uuid
+     * @return \Shopsys\FrameworkBundle\Model\Product\Brand\Brand
+     */
+    public function getByUuid(string $uuid): Brand
+    {
+        $brand = $this->getBrandRepository()->findBy(['uuid' => $uuid]);
+
+        if ($brand === null) {
+            $message = 'Brand with UUID ' . $uuid . ' not found.';
+            throw new \Shopsys\FrameworkBundle\Model\Product\Brand\Exception\BrandNotFoundException($message);
+        }
+
+        return $brand;
+    }
 }

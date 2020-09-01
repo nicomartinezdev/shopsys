@@ -12,6 +12,7 @@ use Shopsys\FrameworkBundle\Model\Category\Category;
 use Shopsys\FrameworkBundle\Model\Category\CategoryRepository;
 use Shopsys\FrameworkBundle\Model\Customer\User\CurrentCustomerUser;
 use Shopsys\FrameworkBundle\Model\Product\Accessory\ProductAccessoryRepository;
+use Shopsys\FrameworkBundle\Model\Product\Brand\Brand;
 use Shopsys\FrameworkBundle\Model\Product\Brand\BrandRepository;
 use Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterConfig;
 use Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterCountData;
@@ -177,6 +178,31 @@ class ProductOnCurrentDomainFacade implements ProductOnCurrentDomainFacadeInterf
     }
 
     /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Brand\Brand $brand
+     * @param int $limit
+     * @param int $offset
+     * @param string $orderingModeId
+     * @return array
+     */
+    public function getProductsByBrand(Brand $brand, int $limit, int $offset, string $orderingModeId): array
+    {
+        $queryBuilder = $this->productRepository->getAllListableTranslatedAndOrderedQueryBuilderForBrand(
+            $this->domain->getId(),
+            $this->domain->getLocale(),
+            $orderingModeId,
+            $this->currentCustomerUser->getPricingGroup(),
+            $brand
+        );
+
+        $queryBuilder->setFirstResult($offset)
+            ->setMaxResults($limit);
+        $query = $queryBuilder->getQuery();
+        $query->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, SortableNullsWalker::class);
+
+        return $query->execute();
+    }
+
+    /**
      * @param int $limit
      * @param int $offset
      * @param string $orderingModeId
@@ -211,6 +237,25 @@ class ProductOnCurrentDomainFacade implements ProductOnCurrentDomainFacadeInterf
 
         return $queryBuilder
             ->select('count(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Brand\Brand $brand
+     * @return int
+     */
+    public function getProductsCountOnCurrentDomainByBrand(Brand $brand): int
+    {
+        $queryBuilder = $this->productRepository->getAllListableQueryBuilder(
+            $this->domain->getId(),
+            $this->currentCustomerUser->getPricingGroup()
+        );
+
+        return $queryBuilder
+            ->select('count(p.id)')
+            ->where('p.brand = :brand')
+            ->setParameter('brand', $brand)
             ->getQuery()
             ->getSingleScalarResult();
     }

@@ -6,6 +6,7 @@ namespace Shopsys\FrameworkBundle\Model\Product;
 
 use Shopsys\FrameworkBundle\Component\Paginator\PaginationResult;
 use Shopsys\FrameworkBundle\Model\Category\Category;
+use Shopsys\FrameworkBundle\Model\Product\Brand\Brand;
 use Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterConfig;
 use Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterCountData;
 use Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterData;
@@ -128,4 +129,19 @@ interface ProductOnCurrentDomainFacadeInterface
      * @return int
      */
     public function getProductsCountOnCurrentDomain(): int;
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Brand\Brand $brand
+     * @param int $limit
+     * @param int $offset
+     * @param string $orderingModeId
+     * @return array
+     */
+    public function getProductsByBrand(Brand $brand, int $limit, int $offset, string $orderingModeId): array;
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Brand\Brand $brand
+     * @return int
+     */
+    public function getProductsCountOnCurrentDomainByBrand(Brand $brand): int;
 }

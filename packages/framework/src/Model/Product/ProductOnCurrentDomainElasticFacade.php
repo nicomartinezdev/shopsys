@@ -10,6 +10,7 @@ use Shopsys\FrameworkBundle\Component\Paginator\PaginationResult;
 use Shopsys\FrameworkBundle\Model\Category\Category;
 use Shopsys\FrameworkBundle\Model\Customer\User\CurrentCustomerUser;
 use Shopsys\FrameworkBundle\Model\Product\Accessory\ProductAccessoryRepository;
+use Shopsys\FrameworkBundle\Model\Product\Brand\Brand;
 use Shopsys\FrameworkBundle\Model\Product\Elasticsearch\ProductIndex;
 use Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterConfig;
 use Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterCountData;
@@ -397,5 +398,42 @@ class ProductOnCurrentDomainElasticFacade implements ProductOnCurrentDomainFacad
 
         $productsResult = $this->productElasticsearchRepository->getSortedProductsResultByFilterQuery($filterQuery);
         return $productsResult->getHits();
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Brand\Brand $brand
+     * @param int $limit
+     * @param int $offset
+     * @param string $orderingModeId
+     * @return array
+     */
+    public function getProductsByBrand(Brand $brand, int $limit, int $offset, string $orderingModeId): array
+    {
+        $emptyProductFilterData = new ProductFilterData();
+        $filterQuery = $this->createListableProductsForBrandFilterQuery(
+            $emptyProductFilterData,
+            $orderingModeId,
+            1,
+            $limit,
+            $brand->getId()
+        )->setFrom($offset);
+
+        $productsResult = $this->productElasticsearchRepository->getSortedProductsResultByFilterQuery($filterQuery);
+        return $productsResult->getHits();
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Brand\Brand $brand
+     * @return int
+     */
+    public function getProductsCountOnCurrentDomainByBrand(Brand $brand): int
+    {
+        $filterQuery = $this->filterQueryFactory->create($this->getIndexName())
+            ->filterOnlySellable()
+            ->filterOnlyVisible($this->currentCustomerUser->getPricingGroup());
+
+        $filterQuery->filterByBrands([$brand->getId()]);
+
+        return $this->productElasticsearchRepository->getProductsCountByFilterQuery($filterQuery);
     }
 }
