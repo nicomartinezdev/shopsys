@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\FrontendApiBundle\Functional\Article;
 
 use Ramsey\Uuid\Uuid;
+use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Shopsys\FrameworkBundle\Model\Article\Article;
 use Tests\FrontendApiBundle\Test\GraphQlTestCase;
 
@@ -48,32 +49,32 @@ class GetArticleTest extends GraphQlTestCase
         $this->assertSame($expectedErrorMessage, $errors[0]['message']);
     }
 
-    /**
-     * @param string $graphQlType
-     * @param array $expectedData
-     * @dataProvider getSpecialArticleDataProvider
-     */
-    public function testGetSpecialArticle(string $graphQlType, array $expectedData): void
+    public function testGetSpecialArticle(): void
     {
-        $response = $this->getResponseContentForQuery($this->getSpecialArticleQuery($graphQlType));
-        $this->assertResponseContainsArrayOfDataForGraphQlType($response, $graphQlType);
-        $responseData = $this->getResponseDataForGraphQlType($response, $graphQlType);
+        foreach ($this->getSpecialArticleDataProvider() as $dataSet) {
+            list($graphQlType, $expectedData) = $dataSet;
 
-        $this->assertArrayHasKey('uuid', $responseData);
-        $this->assertTrue(Uuid::isValid($responseData['uuid']));
+            $response = $this->getResponseContentForQuery($this->getSpecialArticleQuery($graphQlType));
+            $this->assertResponseContainsArrayOfDataForGraphQlType($response, $graphQlType);
+            $responseData = $this->getResponseDataForGraphQlType($response, $graphQlType);
 
-        $this->assertKeysAreSameAsExpected(
-            [
-                'name',
-                'placement',
-                'text',
-                'seoH1',
-                'seoTitle',
-                'seoMetaDescription',
-            ],
-            $responseData,
-            $expectedData
-        );
+            $this->assertArrayHasKey('uuid', $responseData);
+            $this->assertTrue(Uuid::isValid($responseData['uuid']));
+
+            $this->assertKeysAreSameAsExpected(
+                [
+                    'name',
+                    'placement',
+                    'text',
+                    'seoH1',
+                    'seoTitle',
+                    'seoMetaDescription',
+                ],
+                $responseData,
+                $expectedData
+            );
+
+        }
     }
 
     /**
@@ -112,15 +113,16 @@ class GetArticleTest extends GraphQlTestCase
     /**
      * @return array
      */
-    public function getSpecialArticleDataProvider(): array
+    private function getSpecialArticleDataProvider(): array
     {
+        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
         return [
             [
                 'termsAndConditionsArticle',
                 [
-                    'name' => 'Terms and conditions',
+                    'name' => t('Terms and conditions', [], 'dataFixtures', $firstDomainLocale),
                     'placement' => Article::PLACEMENT_FOOTER,
-                    'text' => 'Morbi posuere mauris dolor, quis accumsan dolor ullamcorper eget. Phasellus at elementum magna, et pretium neque. Praesent tristique lorem mi, eget varius quam aliquam eget. Vivamus ultrices interdum nisi, sed placerat lectus fermentum non. Phasellus ac quam vitae nisi aliquam vestibulum. Sed rhoncus tortor a arcu sagittis placerat. Nulla lectus nunc, ultrices ac faucibus sed, accumsan nec diam. Nam auctor neque quis tincidunt tempus. Nunc eget risus tristique, lobortis metus vitae, pellentesque leo. Vivamus placerat turpis ac dolor vehicula tincidunt. Sed venenatis, ante id ultrices convallis, lacus elit porttitor dolor, non porta risus ipsum ac justo. Integer id pretium quam, id placerat nulla.',
+                    'text' => t('Morbi posuere mauris dolor, quis accumsan dolor ullamcorper eget. Phasellus at elementum magna, et pretium neque. Praesent tristique lorem mi, eget varius quam aliquam eget. Vivamus ultrices interdum nisi, sed placerat lectus fermentum non. Phasellus ac quam vitae nisi aliquam vestibulum. Sed rhoncus tortor a arcu sagittis placerat. Nulla lectus nunc, ultrices ac faucibus sed, accumsan nec diam. Nam auctor neque quis tincidunt tempus. Nunc eget risus tristique, lobortis metus vitae, pellentesque leo. Vivamus placerat turpis ac dolor vehicula tincidunt. Sed venenatis, ante id ultrices convallis, lacus elit porttitor dolor, non porta risus ipsum ac justo. Integer id pretium quam, id placerat nulla.', [], 'dataFixtures', $firstDomainLocale),
                     'seoH1' => null,
                     'seoTitle' => null,
                     'seoMetaDescription' => null,
@@ -129,9 +131,9 @@ class GetArticleTest extends GraphQlTestCase
             [
                 'privacyPolicyArticle',
                 [
-                    'name' => 'Privacy policy',
+                    'name' => t('Privacy policy', [], 'dataFixtures', $firstDomainLocale),
                     'placement' => Article::PLACEMENT_NONE,
-                    'text' => 'Morbi posuere mauris dolor, quis accumsan dolor ullamcorper eget. Phasellus at elementum magna, et pretium neque. Praesent tristique lorem mi, eget varius quam aliquam eget. Vivamus ultrices interdum nisi, sed placerat lectus fermentum non. Phasellus ac quam vitae nisi aliquam vestibulum. Sed rhoncus tortor a arcu sagittis placerat. Nulla lectus nunc, ultrices ac faucibus sed, accumsan nec diam. Nam auctor neque quis tincidunt tempus. Nunc eget risus tristique, lobortis metus vitae, pellentesque leo. Vivamus placerat turpis ac dolor vehicula tincidunt. Sed venenatis, ante id ultrices convallis, lacus elit porttitor dolor, non porta risus ipsum ac justo. Integer id pretium quam, id placerat nulla.',
+                    'text' => t('Morbi posuere mauris dolor, quis accumsan dolor ullamcorper eget. Phasellus at elementum magna, et pretium neque. Praesent tristique lorem mi, eget varius quam aliquam eget. Vivamus ultrices interdum nisi, sed placerat lectus fermentum non. Phasellus ac quam vitae nisi aliquam vestibulum. Sed rhoncus tortor a arcu sagittis placerat. Nulla lectus nunc, ultrices ac faucibus sed, accumsan nec diam. Nam auctor neque quis tincidunt tempus. Nunc eget risus tristique, lobortis metus vitae, pellentesque leo. Vivamus placerat turpis ac dolor vehicula tincidunt. Sed venenatis, ante id ultrices convallis, lacus elit porttitor dolor, non porta risus ipsum ac justo. Integer id pretium quam, id placerat nulla.', [], 'dataFixtures', $firstDomainLocale),
                     'seoH1' => null,
                     'seoTitle' => null,
                     'seoMetaDescription' => null,
@@ -140,9 +142,9 @@ class GetArticleTest extends GraphQlTestCase
             [
                 'cookiesArticle',
                 [
-                    'name' => 'Information about cookies',
+                    'name' => t('Information about cookies', [], 'dataFixtures', $firstDomainLocale),
                     'placement' => Article::PLACEMENT_NONE,
-                    'text' => 'Morbi posuere mauris dolor, quis accumsan dolor ullamcorper eget. Phasellus at elementum magna, et pretium neque. Praesent tristique lorem mi, eget varius quam aliquam eget. Vivamus ultrices interdum nisi, sed placerat lectus fermentum non. Phasellus ac quam vitae nisi aliquam vestibulum. Sed rhoncus tortor a arcu sagittis placerat. Nulla lectus nunc, ultrices ac faucibus sed, accumsan nec diam. Nam auctor neque quis tincidunt tempus. Nunc eget risus tristique, lobortis metus vitae, pellentesque leo. Vivamus placerat turpis ac dolor vehicula tincidunt. Sed venenatis, ante id ultrices convallis, lacus elit porttitor dolor, non porta risus ipsum ac justo. Integer id pretium quam, id placerat nulla.',
+                    'text' => t('Morbi posuere mauris dolor, quis accumsan dolor ullamcorper eget. Phasellus at elementum magna, et pretium neque. Praesent tristique lorem mi, eget varius quam aliquam eget. Vivamus ultrices interdum nisi, sed placerat lectus fermentum non. Phasellus ac quam vitae nisi aliquam vestibulum. Sed rhoncus tortor a arcu sagittis placerat. Nulla lectus nunc, ultrices ac faucibus sed, accumsan nec diam. Nam auctor neque quis tincidunt tempus. Nunc eget risus tristique, lobortis metus vitae, pellentesque leo. Vivamus placerat turpis ac dolor vehicula tincidunt. Sed venenatis, ante id ultrices convallis, lacus elit porttitor dolor, non porta risus ipsum ac justo. Integer id pretium quam, id placerat nulla.', [], 'dataFixtures', $firstDomainLocale),
                     'seoH1' => null,
                     'seoTitle' => null,
                     'seoMetaDescription' => null,
