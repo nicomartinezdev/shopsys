@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\FrontendApiBundle\Functional\Customer\User;
 
+use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Tests\FrontendApiBundle\Test\GraphQlWithLoginTestCase;
 
 class CurrentCustomerUserTest extends GraphQlWithLoginTestCase
@@ -83,10 +84,11 @@ mutation {
     }
 }';
 
+        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
         $expectedViolationMessages = [
-            0 => 'First name cannot be longer than 100 characters',
-            1 => 'Last name cannot be longer than 100 characters',
-            2 => 'Telephone number cannot be longer than 30 characters',
+            0 => t('First name cannot be longer than {{ limit }} characters', ['{{ limit }}' => 100], 'validators', $firstDomainLocale),
+            1 => t('Last name cannot be longer than {{ limit }} characters', ['{{ limit }}' => 100], 'validators', $firstDomainLocale),
+            2 => t('Telephone number cannot be longer than {{ limit }} characters', ['{{ limit }}' => 30], 'validators', $firstDomainLocale),
         ];
 
         $response = $this->getResponseContentForQuery($query);
