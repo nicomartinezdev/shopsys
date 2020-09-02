@@ -7,6 +7,7 @@ namespace Tests\FrontendApiBundle\Functional\Order;
 use App\DataFixtures\Demo\PaymentDataFixture;
 use App\DataFixtures\Demo\ProductDataFixture;
 use App\DataFixtures\Demo\TransportDataFixture;
+use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Tests\FrontendApiBundle\Test\GraphQlTestCase;
 
 class AbstractOrderTestCase extends GraphQlTestCase
@@ -16,9 +17,10 @@ class AbstractOrderTestCase extends GraphQlTestCase
      */
     protected function getExpectedOrderItems(): array
     {
+        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
         return [
             0 => [
-                'name' => '22" Sencor SLE 22F46DM4 HELLO KITTY',
+                'name' => t('22" Sencor SLE 22F46DM4 HELLO KITTY', [], 'dataFixtures', $firstDomainLocale),
                 'unitPrice' => [
                     'priceWithVat' => '139.96',
                     'priceWithoutVat' => '115.67',
@@ -31,10 +33,10 @@ class AbstractOrderTestCase extends GraphQlTestCase
                 ],
                 'quantity' => 10,
                 'vatRate' => '21.0000',
-                'unit' => 'pcs',
+                'unit' => t('pcs', [], 'dataFixtures', $firstDomainLocale),
             ],
             1 => [
-                'name' => 'Cash on delivery',
+                'name' => t('Cash on delivery', [], 'dataFixtures', $firstDomainLocale),
                 'unitPrice' => [
                     'priceWithVat' => '2.00',
                     'priceWithoutVat' => '2.00',
@@ -50,7 +52,7 @@ class AbstractOrderTestCase extends GraphQlTestCase
                 'unit' => null,
             ],
             2 => [
-                'name' => 'Czech post',
+                'name' => t('Czech post', [], 'dataFixtures', $firstDomainLocale),
                 'unitPrice' => [
                     'priceWithVat' => '4.84',
                     'priceWithoutVat' => '4.00',

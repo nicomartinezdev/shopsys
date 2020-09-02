@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace Tests\FrontendApiBundle\Functional\Order;
 
+use Shopsys\FrameworkBundle\Component\Domain\Domain;
+
 class FullOrderTest extends AbstractOrderTestCase
 {
     public function testCreateFullOrder(): void
     {
+        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
         $expected = [
             'data' => [
                 'CreateOrder' => [
                     'transport' => [
-                        'name' => 'Czech post',
+                        'name' => t('Czech post', [], 'dataFixtures', $firstDomainLocale),
                     ],
                     'payment' => [
-                        'name' => 'Cash on delivery',
+                        'name' => t('Cash on delivery', [], 'dataFixtures', $firstDomainLocale),
                     ],
-                    'status' => 'New',
+                    'status' => t('New [adjective]', [], 'dataFixtures', $firstDomainLocale),
                     'totalPrice' => [
                         'priceWithVat' => '1406.44',
                         'priceWithoutVat' => '1162.69',
