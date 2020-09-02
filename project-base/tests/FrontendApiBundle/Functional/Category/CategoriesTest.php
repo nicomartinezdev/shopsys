@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\FrontendApiBundle\Functional\Category;
 
+use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Tests\FrontendApiBundle\Test\GraphQlTestCase;
 
 class CategoriesTest extends GraphQlTestCase
@@ -18,14 +19,15 @@ class CategoriesTest extends GraphQlTestCase
             }
         ';
 
+        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
         $arrayExpected = [
             'data' => [
                 'categories' => [
-                    ['name' => 'Electronics'],
-                    ['name' => 'Books'],
-                    ['name' => 'Toys'],
-                    ['name' => 'Garden tools'],
-                    ['name' => 'Food'],
+                    ['name' => t('Electronics', [], 'dataFixtures', $firstDomainLocale)],
+                    ['name' => t('Books', [], 'dataFixtures', $firstDomainLocale)],
+                    ['name' => t('Toys', [], 'dataFixtures', $firstDomainLocale)],
+                    ['name' => t('Garden tools', [], 'dataFixtures', $firstDomainLocale)],
+                    ['name' => t('Food', [], 'dataFixtures', $firstDomainLocale)],
                 ],
             ],
         ];
@@ -46,15 +48,16 @@ class CategoriesTest extends GraphQlTestCase
             }
         ';
 
+        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
         $expected = [
-            'name' => 'Electronics',
+            'name' => t('Electronics', [], 'dataFixtures', $firstDomainLocale),
             'children' => [
-                ['name' => 'TV, audio'],
-                ['name' => 'Cameras & Photo'],
-                ['name' => 'Printers'],
-                ['name' => 'Personal Computers & accessories'],
-                ['name' => 'Mobile Phones'],
-                ['name' => 'Coffee Machines'],
+                ['name' => t('TV, audio', [], 'dataFixtures', $firstDomainLocale)],
+                ['name' => t('Cameras & Photo', [], 'dataFixtures', $firstDomainLocale)],
+                ['name' => t('Printers', [], 'dataFixtures', $firstDomainLocale)],
+                ['name' => t('Personal Computers & accessories', [], 'dataFixtures', $firstDomainLocale)],
+                ['name' => t('Mobile Phones', [], 'dataFixtures', $firstDomainLocale)],
+                ['name' => t('Coffee Machines', [], 'dataFixtures', $firstDomainLocale)],
             ],
         ];
 
