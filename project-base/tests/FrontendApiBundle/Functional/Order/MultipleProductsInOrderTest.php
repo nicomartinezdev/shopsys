@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Tests\FrontendApiBundle\Functional\Order;
 
 use App\DataFixtures\Demo\ProductDataFixture;
-use Shopsys\FrameworkBundle\Component\Domain\Domain;
 
 class MultipleProductsInOrderTest extends AbstractOrderTestCase
 {
     public function testCreateFullOrder(): void
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         $expected = [
             'data' => [
                 'CreateOrder' => [
@@ -82,7 +81,7 @@ class MultipleProductsInOrderTest extends AbstractOrderTestCase
      */
     protected function getExpectedOrderItems(): array
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         return [
             0 => [
                 'name' => t('22" Sencor SLE 22F46DM4 HELLO KITTY', [], 'dataFixtures', $firstDomainLocale),

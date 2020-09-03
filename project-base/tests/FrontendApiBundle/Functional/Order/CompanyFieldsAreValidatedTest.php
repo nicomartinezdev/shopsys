@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\FrontendApiBundle\Functional\Order;
 
-use Shopsys\FrameworkBundle\Component\Domain\Domain;
-
 class CompanyFieldsAreValidatedTest extends AbstractOrderTestCase
 {
     public function testValidationErrorWhenCompanyBehalfIsTrueAndFieldsAreMissing(): void
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         $expectedValidations = [
             'input.companyName' => [
                 0 => [

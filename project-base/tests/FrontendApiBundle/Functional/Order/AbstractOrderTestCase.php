@@ -7,7 +7,6 @@ namespace Tests\FrontendApiBundle\Functional\Order;
 use App\DataFixtures\Demo\PaymentDataFixture;
 use App\DataFixtures\Demo\ProductDataFixture;
 use App\DataFixtures\Demo\TransportDataFixture;
-use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Tests\FrontendApiBundle\Test\GraphQlTestCase;
 
 class AbstractOrderTestCase extends GraphQlTestCase
@@ -17,7 +16,7 @@ class AbstractOrderTestCase extends GraphQlTestCase
      */
     protected function getExpectedOrderItems(): array
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         return [
             0 => [
                 'name' => t('22" Sencor SLE 22F46DM4 HELLO KITTY', [], 'dataFixtures', $firstDomainLocale),
