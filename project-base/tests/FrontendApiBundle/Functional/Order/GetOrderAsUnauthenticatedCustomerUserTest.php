@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\FrontendApiBundle\Functional\Order;
 
-use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Tests\FrontendApiBundle\Test\GraphQlTestCase;
 
 class GetOrderAsUnauthenticatedCustomerUserTest extends GraphQlTestCase
@@ -54,7 +53,6 @@ class GetOrderAsUnauthenticatedCustomerUserTest extends GraphQlTestCase
      */
     public function getOrderDataProvider(): array
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
         $data = [];
         $orderIds = [7, 8, 9];
         foreach ($orderIds as $orderId) {
@@ -62,7 +60,7 @@ class GetOrderAsUnauthenticatedCustomerUserTest extends GraphQlTestCase
             $data[] = [
                 $order->getUrlHash(),
                 [
-                    'status' => $order->getStatus()->getName($firstDomainLocale),
+                    'status' => $order->getStatus()->getName(),
                     'totalPriceWithVat' => $order->getTotalPriceWithVat()->getAmount(),
                 ],
             ];
