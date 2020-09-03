@@ -30,6 +30,11 @@ class TransportPrice
     protected $price;
 
     /**
+     * @ORM\Embedded(class="Shopsys\FrameworkBundle\Component\Money\MoneyWithCurrency")
+     */
+    protected $priceWithCurrency;
+
+    /**
      * @var int
      *
      * @ORM\Id
