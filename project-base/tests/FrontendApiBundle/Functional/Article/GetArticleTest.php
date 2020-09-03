@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\FrontendApiBundle\Functional\Article;
 
 use Ramsey\Uuid\Uuid;
-use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Shopsys\FrameworkBundle\Model\Article\Article;
 use Tests\FrontendApiBundle\Test\GraphQlTestCase;
 
@@ -73,7 +72,6 @@ class GetArticleTest extends GraphQlTestCase
                 $responseData,
                 $expectedData
             );
-
         }
     }
 
@@ -115,7 +113,7 @@ class GetArticleTest extends GraphQlTestCase
      */
     private function getSpecialArticleDataProvider(): array
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         return [
             [
                 'termsAndConditionsArticle',

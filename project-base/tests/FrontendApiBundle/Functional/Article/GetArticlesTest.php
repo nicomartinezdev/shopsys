@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\FrontendApiBundle\Functional\Article;
 
 use Ramsey\Uuid\Uuid;
-use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Shopsys\FrameworkBundle\Model\Article\Article;
 use Tests\FrontendApiBundle\Test\GraphQlTestCase;
 
@@ -14,7 +13,7 @@ class GetArticlesTest extends GraphQlTestCase
     public function testGetArticles(): void
     {
         foreach ($this->getArticlesDataProvider() as $dataSet) {
-            list ($query, $expectedArticlesData) = $dataSet;
+            list($query, $expectedArticlesData) = $dataSet;
 
             $graphQlType = 'articles';
             $response = $this->getResponseContentForQuery($query);
@@ -203,7 +202,7 @@ class GetArticlesTest extends GraphQlTestCase
      */
     private function getExpectedArticles(): array
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         return [
             [
                 'name' => t('Terms and conditions', [], 'dataFixtures', $firstDomainLocale),
