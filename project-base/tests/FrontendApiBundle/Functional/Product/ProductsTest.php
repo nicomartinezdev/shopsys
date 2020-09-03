@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\FrontendApiBundle\Functional\Product;
 
-use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Tests\FrontendApiBundle\Test\GraphQlTestCase;
 
 class ProductsTest extends GraphQlTestCase
 {
     public function testFirstFiveProductsWithName(): void
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         $query = '
             query {
                 products (first: 5) {
@@ -106,7 +105,7 @@ class ProductsTest extends GraphQlTestCase
      */
     private function getExpectedDataForFifthProduct(): array
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         $arrayExpected = [
             [
                 'name' => t('30” Hyundai 22MT44D', [], 'dataFixtures', $firstDomainLocale),
@@ -160,7 +159,7 @@ class ProductsTest extends GraphQlTestCase
      */
     private function getExpectedDataForLastProduct(): string
     {
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         return '{
     "data": {
         "products": {
