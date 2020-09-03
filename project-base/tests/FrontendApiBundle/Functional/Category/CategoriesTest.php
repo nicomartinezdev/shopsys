@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\FrontendApiBundle\Functional\Category;
 
-use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Tests\FrontendApiBundle\Test\GraphQlTestCase;
 
 class CategoriesTest extends GraphQlTestCase
@@ -19,7 +18,7 @@ class CategoriesTest extends GraphQlTestCase
             }
         ';
 
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         $arrayExpected = [
             'data' => [
                 'categories' => [
@@ -48,7 +47,7 @@ class CategoriesTest extends GraphQlTestCase
             }
         ';
 
-        $firstDomainLocale = $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale();
+        $firstDomainLocale = $this->getLocaleForFirstDomain();
         $expected = [
             'name' => t('Electronics', [], 'dataFixtures', $firstDomainLocale),
             'children' => [
