@@ -30,7 +30,7 @@ class GetOrdersAsAuthenticatedCustomerUserTest extends GraphQlWithLoginTestCase
 
                 $this->assertArrayHasKey('totalPrice', $edge['node']);
                 $this->assertArrayHasKey('priceWithVat', $edge['node']['totalPrice']);
-                $this->assertSame($expectedOrderData['priceWithVat'], $edge['node']['totalPrice']['priceWithVat']);
+                $this->assertSame((float)$expectedOrderData['priceWithVat'], (float)$edge['node']['totalPrice']['priceWithVat']);
             }
         }
     }
@@ -138,27 +138,27 @@ class GetOrdersAsAuthenticatedCustomerUserTest extends GraphQlWithLoginTestCase
         return [
             [
                 'status' => t('In Progress', [], 'dataFixtures', $firstDomainLocale),
-                'priceWithVat' => '153.640000',
+                'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('3841.00'),
             ],
             [
                 'status' => t('Done', [], 'dataFixtures', $firstDomainLocale),
-                'priceWithVat' => '4308.320000',
+                'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('107708.00'),
             ],
             [
                 'status' => t('New [adjective]', [], 'dataFixtures', $firstDomainLocale),
-                'priceWithVat' => '83.580000',
+                'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('2089.50'),
             ],
             [
                 'status' => t('Done', [], 'dataFixtures', $firstDomainLocale),
-                'priceWithVat' => '245.970000',
+                'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('6149.25'),
             ],
             [
                 'status' => t('New [adjective]', [], 'dataFixtures', $firstDomainLocale),
-                'priceWithVat' => '76.580000',
+                'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('1914.50'),
             ],
             [
                 'status' => t('New [adjective]', [], 'dataFixtures', $firstDomainLocale),
-                'priceWithVat' => '1012.420000',
+                'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('25310.50'),
             ],
         ];
     }

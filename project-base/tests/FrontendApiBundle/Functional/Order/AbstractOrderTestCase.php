@@ -21,14 +21,14 @@ class AbstractOrderTestCase extends GraphQlTestCase
             0 => [
                 'name' => t('22" Sencor SLE 22F46DM4 HELLO KITTY', [], 'dataFixtures', $firstDomainLocale),
                 'unitPrice' => [
-                    'priceWithVat' => '139.96',
-                    'priceWithoutVat' => '115.67',
-                    'vatAmount' => '24.29',
+                    'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('3499'),
+                    'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('2891.75'),
+                    'vatAmount' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('607.25'),
                 ],
                 'totalPrice' => [
-                    'priceWithVat' => '1399.60',
-                    'priceWithoutVat' => '1156.69',
-                    'vatAmount' => '242.91',
+                    'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('34990'),
+                    'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('28917.25'),
+                    'vatAmount' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('6072.75'),
                 ],
                 'quantity' => 10,
                 'vatRate' => '21.0000',
@@ -37,13 +37,13 @@ class AbstractOrderTestCase extends GraphQlTestCase
             1 => [
                 'name' => t('Cash on delivery', [], 'dataFixtures', $firstDomainLocale),
                 'unitPrice' => [
-                    'priceWithVat' => '2.00',
-                    'priceWithoutVat' => '2.00',
+                    'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('50.00'),
+                    'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('50.00'),
                     'vatAmount' => '0.00',
                 ],
                 'totalPrice' => [
-                    'priceWithVat' => '2.00',
-                    'priceWithoutVat' => '2.00',
+                    'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('50.00'),
+                    'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('50.00'),
                     'vatAmount' => '0.00',
                 ],
                 'quantity' => 1,
@@ -53,14 +53,14 @@ class AbstractOrderTestCase extends GraphQlTestCase
             2 => [
                 'name' => t('Czech post', [], 'dataFixtures', $firstDomainLocale),
                 'unitPrice' => [
-                    'priceWithVat' => '4.84',
-                    'priceWithoutVat' => '4.00',
-                    'vatAmount' => '0.84',
+                    'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('121.00'),
+                    'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('100.00'),
+                    'vatAmount' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('21.00'),
                 ],
                 'totalPrice' => [
-                    'priceWithVat' => '4.84',
-                    'priceWithoutVat' => '4.00',
-                    'vatAmount' => '0.84',
+                    'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('121.00'),
+                    'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('100.00'),
+                    'vatAmount' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('21.00'),
                 ],
                 'quantity' => 1,
                 'vatRate' => '21.0000',

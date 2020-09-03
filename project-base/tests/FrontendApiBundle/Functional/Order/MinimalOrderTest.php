@@ -20,9 +20,9 @@ class MinimalOrderTest extends AbstractOrderTestCase
                     ],
                     'status' => t('New [adjective]', [], 'dataFixtures', $firstDomainLocale),
                     'totalPrice' => [
-                        'priceWithVat' => '1406.44',
-                        'priceWithoutVat' => '1162.69',
-                        'vatAmount' => '243.75',
+                        'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('35161.00'),
+                        'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('29067.25'),
+                        'vatAmount' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('6093.75'),
                     ],
                     'items' => $this->getExpectedOrderItems(),
                     'firstName' => 'firstName',
