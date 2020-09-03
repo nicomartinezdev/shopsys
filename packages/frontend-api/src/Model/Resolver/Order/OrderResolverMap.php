@@ -8,6 +8,7 @@ use Overblog\GraphQLBundle\Resolver\ResolverMap;
 use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Shopsys\FrameworkBundle\Model\Order\Order;
 use Shopsys\FrameworkBundle\Model\Pricing\Price;
+use Shopsys\FrameworkBundle\Model\Pricing\Rounding;
 
 class OrderResolverMap extends ResolverMap
 {
@@ -17,11 +18,18 @@ class OrderResolverMap extends ResolverMap
     protected $domain;
 
     /**
-     * @param \Shopsys\FrameworkBundle\Component\Domain\Domain $domain
+     * @var \Shopsys\FrameworkBundle\Model\Pricing\Rounding
      */
-    public function __construct(Domain $domain)
+    protected $rounding;
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Component\Domain\Domain $domain
+     * @param \Shopsys\FrameworkBundle\Model\Pricing\Rounding $rounding
+     */
+    public function __construct(Domain $domain, Rounding $rounding)
     {
         $this->domain = $domain;
+        $this->rounding = $rounding;
     }
 
     /**
@@ -47,7 +55,11 @@ class OrderResolverMap extends ResolverMap
                     return $order->getStatus()->getName($this->domain->getLocale());
                 },
                 'totalPrice' => function (Order $order) {
-                    return new Price($order->getTotalPriceWithoutVat(), $order->getTotalPriceWithVat());
+                    $currency = $order->getCurrency();
+                    return new Price(
+                        $this->rounding->roundPriceWithoutVat($order->getTotalPriceWithoutVat()),
+                        $this->rounding->roundPriceWithVatByCurrency($order->getTotalPriceWithVat(), $currency)
+                    );
                 },
             ],
         ];

@@ -14,6 +14,12 @@ class GetOrderAsAuthenticatedCustomerUserTest extends GraphQlWithLoginTestCase
      */
     private $orderFacade;
 
+    /**
+     * @var \Shopsys\FrameworkBundle\Model\Pricing\Rounding
+     * @inject
+     */
+    private $rounding;
+
     public function testGetOrder(): void
     {
         foreach ($this->getOrderDataForCurrentlyLoggedCustomerUserProvider() as $dataSet) {
@@ -60,7 +66,10 @@ class GetOrderAsAuthenticatedCustomerUserTest extends GraphQlWithLoginTestCase
                 $order->getUuid(),
                 [
                     'status' => $order->getStatus()->getName(),
-                    'totalPriceWithVat' => $order->getTotalPriceWithVat()->getAmount(),
+                    'totalPriceWithVat' => $this->rounding->roundPriceWithVatByCurrency(
+                        $order->getTotalPriceWithVat()->getAmount(),
+                        $order->getCurrency()
+                    ),
                 ],
             ];
         }

@@ -126,7 +126,7 @@ class ProductsTest extends GraphQlTestCase
                 'flags' => [],
                 'price' => [
                     'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('4838.75'),
-                    'priceWithoutVat' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('3999'),
+                    'priceWithoutVat' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('3999.00'),
                     'vatAmount' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('839.75'),
                 ],
             ],

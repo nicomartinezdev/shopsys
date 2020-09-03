@@ -42,8 +42,8 @@ class TransportsTest extends GraphQlTestCase
                         'position' => 0,
                         'price' => [
                             'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('121'),
-                            'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('100.00'),
-                            'vatAmount' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('21.00'),
+                            'priceWithoutVat' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('100.00'),
+                            'vatAmount' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('21.00'),
                         ],
                         'images' => [
                             ['url' => $this->getFullUrlPath('/content-test/images/transport/default/56.jpg')],
@@ -60,8 +60,8 @@ class TransportsTest extends GraphQlTestCase
                         'position' => 1,
                         'price' => [
                             'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('242'),
-                            'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('200.00'),
-                            'vatAmount' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('42.00'),
+                            'priceWithoutVat' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('200.00'),
+                            'vatAmount' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('42.00'),
                         ],
                         'images' => [
                             ['url' => $this->getFullUrlPath('/content-test/images/transport/default/57.jpg')],
@@ -77,9 +77,9 @@ class TransportsTest extends GraphQlTestCase
                         'instruction' => null,
                         'position' => 2,
                         'price' => [
-                            'priceWithVat' => '0.00',
-                            'priceWithoutVat' => '0.00',
-                            'vatAmount' => '0.00',
+                            'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('0.00'),
+                            'priceWithoutVat' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('0.00'),
+                            'vatAmount' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('0.00'),
                         ],
                         'images' => [
                             ['url' => $this->getFullUrlPath('/content-test/images/transport/default/58.jpg')],

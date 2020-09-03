@@ -21,8 +21,8 @@ class FullOrderTest extends AbstractOrderTestCase
                     'status' => t('New [adjective]', [], 'dataFixtures', $firstDomainLocale),
                     'totalPrice' => [
                         'priceWithVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('35161.00'),
-                        'priceWithoutVat' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('29067.25'),
-                        'vatAmount' => $this->getPriceWithVatConvertedToDomainDefaultCurrency('6093.75'),
+                        'priceWithoutVat' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('29067.25'),
+                        'vatAmount' => $this->getPriceWithoutVatConvertedToDomainDefaultCurrency('6093.75'),
                     ],
                     'items' => $this->getExpectedOrderItems(),
                     'firstName' => 'firstName',

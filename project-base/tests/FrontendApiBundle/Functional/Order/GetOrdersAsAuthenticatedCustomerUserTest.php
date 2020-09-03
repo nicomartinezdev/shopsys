@@ -30,7 +30,7 @@ class GetOrdersAsAuthenticatedCustomerUserTest extends GraphQlWithLoginTestCase
 
                 $this->assertArrayHasKey('totalPrice', $edge['node']);
                 $this->assertArrayHasKey('priceWithVat', $edge['node']['totalPrice']);
-                $this->assertSame((float)$expectedOrderData['priceWithVat'], (float)$edge['node']['totalPrice']['priceWithVat']);
+                $this->assertSame($expectedOrderData['priceWithVat'], $edge['node']['totalPrice']['priceWithVat']);
             }
         }
     }
