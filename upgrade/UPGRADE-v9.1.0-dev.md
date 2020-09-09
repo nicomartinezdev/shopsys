@@ -62,3 +62,13 @@ There you can find links to upgrade notes for other versions too.
     - this methods has been marked as deprecated and will be removed in next major version:
         - `Shopsys\FrameworkBundle\Model\Product\ProductFacade::getSellableByUuid()` use `Shopsys\FrontendApiBundle\Model\Product\ProductFacade::getSellableByUuid()` instead
         - `Shopsys\FrameworkBundle\Model\Product\ProductRepository::getSellableByUuid()` use `Shopsys\FrontendApiBundle\Model\Product\ProductRepository::getSellableByUuid()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleFacade::getAllVisibleArticlesCountByDomainId()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleFacade::getAllVisibleArticlesCountByDomainId()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleFacade::getAllVisibleArticlesCountByDomainIdAndPlacement()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleFacade::getAllVisibleArticlesCountByDomainIdAndPlacement()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleFacade::getVisibleArticlesListByDomainId()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleFacade::getVisibleArticlesListByDomainId()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleFacade::getVisibleArticlesListByDomainIdAndPlacement()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleFacade::getVisibleArticlesListByDomainIdAndPlacement()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleFacade::getVisibleByDomainIdAndUuid()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleFacade::getVisibleByDomainIdAndUuid()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleRepository::getAllVisibleArticlesCountByDomainId()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleRepository::getAllVisibleArticlesCountByDomainId()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleRepository::getAllVisibleArticlesCountByDomainIdAndPlacement()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleRepository::getAllVisibleArticlesCountByDomainIdAndPlacement()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleRepository::getVisibleArticlesListByDomainId()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleRepository::getVisibleArticlesListByDomainId()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleRepository::getVisibleArticlesListByDomainIdAndPlacement()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleRepository::getVisibleArticlesListByDomainIdAndPlacement()` instead
+        - `Shopsys\FrameworkBundle\Model\Article\ArticleRepository::getVisibleByDomainIdAndUuid()` use `\Shopsys\FrontendApiBundle\Model\Article\ArticleRepository::getVisibleByDomainIdAndUuid()` instead

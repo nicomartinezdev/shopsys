@@ -102,6 +102,7 @@ class ArticleRepository
      * @param int $limit
      * @param int $offset
      * @return \Shopsys\FrameworkBundle\Model\Article\Article[]
+     * @deprecated This method will be removed in next major version. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getVisibleListByDomainIdAndPlacement()
      */
     public function getVisibleListByDomainIdAndPlacement(
         int $domainId,
@@ -109,6 +110,14 @@ class ArticleRepository
         int $limit,
         int $offset
     ): array {
+        @trigger_error(
+            sprintf(
+                'The %s() method is deprecated and will be removed in the next major. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getVisibleListByDomainIdAndPlacement().',
+                __METHOD__
+            ),
+            E_USER_DEPRECATED
+        );
+
         $queryBuilder = $this->getVisibleArticlesByDomainIdAndPlacementSortedByPositionQueryBuilder($domainId, $placement)
             ->setFirstResult($offset)
             ->setMaxResults($limit);
@@ -120,9 +129,18 @@ class ArticleRepository
      * @param int $domainId
      * @param string $placement
      * @return int
+     * @deprecated This method will be removed in next major version. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getAllVisibleArticlesCountByDomainIdAndPlacement()
      */
     public function getAllVisibleArticlesCountByDomainIdAndPlacement(int $domainId, string $placement): int
     {
+        @trigger_error(
+            sprintf(
+                'The %s() method is deprecated and will be removed in the next major. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getAllVisibleArticlesCountByDomainIdAndPlacement().',
+                __METHOD__
+            ),
+            E_USER_DEPRECATED
+        );
+
         $queryBuilder = $this->getArticlesByDomainIdQueryBuilder($domainId)
             ->select('COUNT(a)')
             ->andWhere('a.hidden = false')
@@ -178,9 +196,18 @@ class ArticleRepository
     /**
      * @param int $domainId
      * @return int
+     * @deprecated This method will be removed in next major version. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getAllVisibleArticlesCountByDomainId()
      */
     public function getAllVisibleArticlesCountByDomainId($domainId): int
     {
+        @trigger_error(
+            sprintf(
+                'The %s() method is deprecated and will be removed in the next major. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getAllVisibleArticlesCountByDomainId().',
+                __METHOD__
+            ),
+            E_USER_DEPRECATED
+        );
+
         $queryBuilder = $this->getArticlesByDomainIdQueryBuilder($domainId)
             ->select('COUNT(a)')
             ->andWhere('a.hidden = false');
@@ -193,12 +220,21 @@ class ArticleRepository
      * @param int $limit
      * @param int $offset
      * @return \Shopsys\FrameworkBundle\Model\Article\Article[]
+     * @deprecated This method will be removed in next major version. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getVisibleListByDomainId()
      */
     public function getVisibleListByDomainId(
         int $domainId,
         int $limit,
         int $offset
     ): array {
+        @trigger_error(
+            sprintf(
+                'The %s() method is deprecated and will be removed in the next major. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getVisibleListByDomainId().',
+                __METHOD__
+            ),
+            E_USER_DEPRECATED
+        );
+
         $queryBuilder = $this->getAllVisibleQueryBuilder()
             ->andWhere('a.domainId = :domainId')
             ->setParameter('domainId', $domainId)
@@ -240,9 +276,18 @@ class ArticleRepository
      * @param int $domainId
      * @param string $uuid
      * @return \Shopsys\FrameworkBundle\Model\Article\Article
+     * @deprecated This method will be removed in next major version. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getVisibleByDomainIdAndUuid()
      */
     public function getVisibleByDomainIdAndUuid(int $domainId, string $uuid): Article
     {
+        @trigger_error(
+            sprintf(
+                'The %s() method is deprecated and will be removed in the next major. It was used only in FE API, so it has been replaced by \Shopsys\FrontendApiBundle\Model\ArticleRepository::getVisibleByDomainIdAndUuid().',
+                __METHOD__
+            ),
+            E_USER_DEPRECATED
+        );
+
         $article = $this->getAllVisibleQueryBuilder()
             ->andWhere('a.domainId = :domainId')
             ->setParameter('domainId', $domainId)
