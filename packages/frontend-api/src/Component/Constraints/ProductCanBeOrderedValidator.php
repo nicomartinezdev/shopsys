@@ -8,14 +8,14 @@ use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Shopsys\FrameworkBundle\Model\Customer\User\CurrentCustomerUser;
 use Shopsys\FrameworkBundle\Model\Product\Exception\ProductNotFoundException;
 use Shopsys\FrameworkBundle\Model\Product\ProductCachedAttributesFacade;
-use Shopsys\FrameworkBundle\Model\Product\ProductFacade;
+use Shopsys\FrontendApiBundle\Model\Product\ProductFacade;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class ProductCanBeOrderedValidator extends ConstraintValidator
 {
     /**
-     * @var \Shopsys\FrameworkBundle\Model\Product\ProductFacade
+     * @var \Shopsys\FrontendApiBundle\Model\Product\ProductFacade
      */
     protected $productFacade;
 
@@ -35,7 +35,7 @@ class ProductCanBeOrderedValidator extends ConstraintValidator
     protected $currentCustomerUser;
 
     /**
-     * @param \Shopsys\FrameworkBundle\Model\Product\ProductFacade $productFacade
+     * @param \Shopsys\FrontendApiBundle\Model\Product\ProductFacade $productFacade
      * @param \Shopsys\FrameworkBundle\Model\Product\ProductCachedAttributesFacade $productCachedAttributesFacade
      * @param \Shopsys\FrameworkBundle\Component\Domain\Domain $domain
      * @param \Shopsys\FrameworkBundle\Model\Customer\User\CurrentCustomerUser $currentCustomerUser

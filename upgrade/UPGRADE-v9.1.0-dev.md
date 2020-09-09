@@ -57,3 +57,8 @@ There you can find links to upgrade notes for other versions too.
 
 - move npm-global directory to project in order to make it included in Docker volumes ([#2024](https://github.com/shopsys/shopsys/pull/2024))
     - see #project-base-diff to update your project
+
+- remove FE API only dependencies from framework ([#2032](https://github.com/shopsys/shopsys/pull/2032))
+    - this methods has been marked as deprecated and will be removed in next major version:
+        - `Shopsys\FrameworkBundle\Model\Product\ProductFacade::getSellableByUuid()` use `Shopsys\FrontendApiBundle\Model\Product\ProductFacade::getSellableByUuid()` instead
+        - `Shopsys\FrameworkBundle\Model\Product\ProductRepository::getSellableByUuid()` use `Shopsys\FrontendApiBundle\Model\Product\ProductRepository::getSellableByUuid()` instead
