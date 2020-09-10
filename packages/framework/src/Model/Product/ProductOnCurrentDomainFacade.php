@@ -279,7 +279,7 @@ class ProductOnCurrentDomainFacade implements ProductOnCurrentDomainFacadeInterf
 
         $page = 1;
 
-        $paginationResult = $this->productRepository->getPaginationResultForSearchListable(
+        return $this->productRepository->getPaginationResultForSearchListable(
             $searchText,
             $this->domain->getId(),
             $this->domain->getLocale(),
@@ -289,8 +289,6 @@ class ProductOnCurrentDomainFacade implements ProductOnCurrentDomainFacadeInterf
             $page,
             $limit
         );
-
-        return $paginationResult;
     }
 
     /**
