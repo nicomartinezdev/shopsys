@@ -7,6 +7,8 @@ namespace Shopsys\FrontendApiBundle\Model\Resolver\Image;
 use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Shopsys\FrameworkBundle\Component\Domain\Domain;
+use Shopsys\FrameworkBundle\Component\Image\Config\Exception\ImageSizeNotFoundException;
+use Shopsys\FrameworkBundle\Component\Image\Config\Exception\ImageTypeNotFoundException;
 use Shopsys\FrameworkBundle\Component\Image\Config\ImageConfig;
 use Shopsys\FrameworkBundle\Component\Image\Config\ImageEntityConfig;
 use Shopsys\FrameworkBundle\Component\Image\ImageFacade;
@@ -140,9 +142,9 @@ class ImagesResolver implements ResolverInterface
                     $sizeConfigs = [$imageConfig->getSizeConfigByType($type, $size)];
                 }
             }
-        } catch (\Shopsys\FrameworkBundle\Component\Image\Config\Exception\ImageSizeNotFoundException $e) {
+        } catch (ImageSizeNotFoundException $e) {
             throw new UserError(sprintf('Image size %s not found for %s', $size, $entityName));
-        } catch (\Shopsys\FrameworkBundle\Component\Image\Config\Exception\ImageTypeNotFoundException $e) {
+        } catch (ImageTypeNotFoundException $e) {
             throw new UserError(sprintf('Image type %s not found for %s', $type, $entityName));
         }
 

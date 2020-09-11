@@ -11,6 +11,7 @@ use Shopsys\FrameworkBundle\Model\Product\ProductCachedAttributesFacade;
 use Shopsys\FrameworkBundle\Model\Product\ProductFacade;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ProductCanBeOrderedValidator extends ConstraintValidator
 {
@@ -59,7 +60,7 @@ class ProductCanBeOrderedValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof ProductCanBeOrdered) {
-            throw new \Symfony\Component\Validator\Exception\UnexpectedTypeException($constraint, ProductCanBeOrdered::class);
+            throw new UnexpectedTypeException($constraint, ProductCanBeOrdered::class);
         }
 
         // Field types and content is assured by GraphQL type definition
