@@ -33,7 +33,7 @@ class RoutingExtension implements ExtensionInterface
      */
     public function buildOptions(array $options = []): array
     {
-        if (!empty($options['route'])) {
+        if (array_key_exists('route', $options) && $options['route'] !== '') {
             $params = $options['routeParameters'] ?? [];
             $absolute = isset($options['routeAbsolute']) && $options['routeAbsolute'] ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH;
             try {

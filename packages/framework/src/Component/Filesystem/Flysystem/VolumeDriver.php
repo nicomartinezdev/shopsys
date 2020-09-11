@@ -134,7 +134,7 @@ class VolumeDriver extends Driver
                         $this->rmTmb($this->stat($p));
                     }
                 }
-            } elseif (!empty($stat['tmb']) && (string)$stat['tmb'] !== '1') {
+            } elseif (array_key_exists('tmb', $stat) && (string)$stat['tmb'] !== '1') {
                 $thumbnailPath = $this->createThumbnailPath(rawurldecode($stat['tmb']));
                 $this->_unlink($thumbnailPath);
                 clearstatcache();

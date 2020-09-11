@@ -196,7 +196,7 @@ class TranslationReplaceSourceCommand extends Command
                     $sourceFileReferences
                 );
             }
-        } elseif (!empty($item['ids']['singular'])) {
+        } elseif (count($item['ids']['singular']) > 0) {
             $translationSourceReplacements[] = new TranslationSourceReplacement(
                 stripcslashes($item['ids']['singular']),
                 stripcslashes($item['translated']),

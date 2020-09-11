@@ -575,7 +575,7 @@ class ProductFacade
     protected function createFriendlyUrlsWhenRenamed(Product $product, array $originalNames): void
     {
         $changedNames = $this->getChangedNamesByLocale($product, $originalNames);
-        if (empty($changedNames)) {
+        if (count($changedNames) === 0) {
             return;
         }
 
