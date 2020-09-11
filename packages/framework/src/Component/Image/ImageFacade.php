@@ -131,7 +131,11 @@ class ImageFacade
             $entitiesForFlush = [];
             $imageEntityConfig = $this->imageConfig->getImageEntityConfig($entity);
             $entityId = $this->getEntityId($entity);
-            $oldImage = $this->imageRepository->findImageByEntity($imageEntityConfig->getEntityName(), $entityId, $type);
+            $oldImage = $this->imageRepository->findImageByEntity(
+                $imageEntityConfig->getEntityName(),
+                $entityId,
+                $type
+            );
 
             if ($oldImage !== null) {
                 $this->em->remove($oldImage);
@@ -260,7 +264,9 @@ class ImageFacade
     {
         $entityName = $image->getEntityName();
         $imageConfig = $this->imageConfig->getEntityConfigByEntityName($entityName);
-        $sizeConfigs = $image->getType() === null ? $imageConfig->getSizeConfigs() : $imageConfig->getSizeConfigsByType($image->getType());
+        $sizeConfigs = $image->getType() === null ? $imageConfig->getSizeConfigs() : $imageConfig->getSizeConfigsByType(
+            $image->getType()
+        );
         foreach ($sizeConfigs as $sizeConfig) {
             $filepath = $this->imageLocator->getAbsoluteImageFilepath($image, $sizeConfig->getName());
 
@@ -330,7 +336,13 @@ class ImageFacade
         ?string $type,
         ?string $sizeName = null
     ): string {
-        $imageFilepath = $this->imageLocator->getRelativeImageFilepathFromAttributes($id, $extension, $entityName, $type, $sizeName);
+        $imageFilepath = $this->imageLocator->getRelativeImageFilepathFromAttributes(
+            $id,
+            $extension,
+            $entityName,
+            $type,
+            $sizeName
+        );
 
         return $domainConfig->getUrl() . $this->imageUrlPrefix . $imageFilepath;
     }
@@ -379,7 +391,14 @@ class ImageFacade
 
         $result = [];
         foreach ($sizeConfig->getAdditionalSizes() as $additionalSizeIndex => $additionalSizeConfig) {
-            $imageFilepath = $this->imageLocator->getRelativeImageFilepathFromAttributes($id, $extension, $entityName, $type, $sizeName, $additionalSizeIndex);
+            $imageFilepath = $this->imageLocator->getRelativeImageFilepathFromAttributes(
+                $id,
+                $extension,
+                $entityName,
+                $type,
+                $sizeName,
+                $additionalSizeIndex
+            );
             $url = $domainConfig->getUrl() . $this->imageUrlPrefix . $imageFilepath;
 
             $result[] = new AdditionalImageData($additionalSizeConfig->getMedia(), $url);
@@ -438,8 +457,13 @@ class ImageFacade
         $targetImages = [];
         foreach ($sourceImages as $sourceImage) {
             $this->mountManager->copy(
-                'main://' . $this->imageLocator->getAbsoluteImageFilepath($sourceImage, ImageConfig::ORIGINAL_SIZE_NAME),
-                'local://' . TransformString::removeDriveLetterFromPath($this->fileUpload->getTemporaryFilepath($sourceImage->getFilename()))
+                'main://' . $this->imageLocator->getAbsoluteImageFilepath(
+                    $sourceImage,
+                    ImageConfig::ORIGINAL_SIZE_NAME
+                ),
+                'local://' . TransformString::removeDriveLetterFromPath(
+                    $this->fileUpload->getTemporaryFilepath($sourceImage->getFilename())
+                )
             );
 
             $targetImage = $this->imageFactory->create(

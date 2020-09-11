@@ -220,7 +220,10 @@ class OrderController extends FrontBaseController
                 $deliveryAddress = $orderData->deliveryAddressSameAsBillingAddress === false ? $frontOrderFormData->deliveryAddress : null;
                 /** @var \App\Model\Order\Order $order */
                 $order = $this->orderFacade->createOrderFromFront($orderData, $deliveryAddress);
-                $this->orderFacade->sendHeurekaOrderInfo($order, $frontOrderFormData->disallowHeurekaVerifiedByCustomers);
+                $this->orderFacade->sendHeurekaOrderInfo(
+                    $order,
+                    $frontOrderFormData->disallowHeurekaVerifiedByCustomers
+                );
 
                 if ($frontOrderFormData->newsletterSubscription) {
                     $this->newsletterFacade->addSubscribedEmail($frontOrderFormData->email, $this->domain->getId());
@@ -264,7 +267,9 @@ class OrderController extends FrontBaseController
                 $orderPreview->getProductsPrice(),
                 $domainId
             ),
-            'termsAndConditionsArticle' => $this->legalConditionsFacade->findTermsAndConditions($this->domain->getId()),
+            'termsAndConditionsArticle' => $this->legalConditionsFacade->findTermsAndConditions(
+                $this->domain->getId()
+            ),
             'privacyPolicyArticle' => $this->legalConditionsFacade->findPrivacyPolicy($this->domain->getId()),
             'paymentTransportRelations' => $this->getPaymentTransportRelations($payments),
         ]);
@@ -402,7 +407,9 @@ class OrderController extends FrontBaseController
     private function getTermsAndConditionsResponse()
     {
         return $this->render('Front/Content/Order/legalConditions.html.twig', [
-            'termsAndConditionsArticle' => $this->legalConditionsFacade->findTermsAndConditions($this->domain->getId()),
+            'termsAndConditionsArticle' => $this->legalConditionsFacade->findTermsAndConditions(
+                $this->domain->getId()
+            ),
         ]);
     }
 
@@ -411,7 +418,10 @@ class OrderController extends FrontBaseController
      */
     private function sendMail($order)
     {
-        $mailTemplate = $this->orderMailFacade->getMailTemplateByStatusAndDomainId($order->getStatus(), $order->getDomainId());
+        $mailTemplate = $this->orderMailFacade->getMailTemplateByStatusAndDomainId(
+            $order->getStatus(),
+            $order->getDomainId()
+        );
         if ($mailTemplate->isSendMail()) {
             $this->orderMailFacade->sendEmail($order);
         }

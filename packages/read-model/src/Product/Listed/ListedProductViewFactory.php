@@ -62,7 +62,16 @@ class ListedProductViewFactory
         ProductActionView $action,
         ?ImageView $image
     ): ListedProductView {
-        return new ListedProductView($id, $name, $shortDescription, $availability, $sellingPrice, $flagIds, $action, $image);
+        return new ListedProductView(
+            $id,
+            $name,
+            $shortDescription,
+            $availability,
+            $sellingPrice,
+            $flagIds,
+            $action,
+            $image
+        );
     }
 
     /**

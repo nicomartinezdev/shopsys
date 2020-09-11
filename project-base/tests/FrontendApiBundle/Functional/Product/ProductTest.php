@@ -39,7 +39,12 @@ class ProductTest extends GraphQlTestCase
         $arrayExpected = [
             'data' => [
                 'product' => [
-                    'name' => t('22" Sencor SLE 22F46DM4 HELLO KITTY', [], 'dataFixtures', $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale()),
+                    'name' => t(
+                        '22" Sencor SLE 22F46DM4 HELLO KITTY',
+                        [],
+                        'dataFixtures',
+                        $this->domain->getDomainConfigById(Domain::FIRST_DOMAIN_ID)->getLocale()
+                    ),
                 ],
             ],
         ];

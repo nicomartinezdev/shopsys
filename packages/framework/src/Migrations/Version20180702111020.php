@@ -36,7 +36,11 @@ class Version20180702111020 extends AbstractMigration
 
     private function setInputPriceType()
     {
-        $inputPriceTypeSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'inputPriceType\' AND domain_id = 0;')->fetchColumn(0);
+        $inputPriceTypeSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'inputPriceType\' AND domain_id = 0;'
+        )->fetchColumn(
+            0
+        );
         if ($inputPriceTypeSettingCount > 0) {
             return;
         }
@@ -45,12 +49,18 @@ class Version20180702111020 extends AbstractMigration
          * value 2 stands for INPUT_PRICE_TYPE_WITHOUT_VAT
          * @see \Shopsys\FrameworkBundle\Model\Pricing\PricingSetting
          */
-        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'inputPriceType\', 0, 2, \'integer\')');
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'inputPriceType\', 0, 2, \'integer\')'
+        );
     }
 
     private function setRoundingType()
     {
-        $roundingTypeSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'roundingType\' AND domain_id = 0;')->fetchColumn(0);
+        $roundingTypeSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'roundingType\' AND domain_id = 0;'
+        )->fetchColumn(
+            0
+        );
         if ($roundingTypeSettingCount > 0) {
             return;
         }
@@ -59,12 +69,18 @@ class Version20180702111020 extends AbstractMigration
          * value 3 stands for ROUNDING_TYPE_HUNDREDTHS
          * @see \Shopsys\FrameworkBundle\Model\Pricing\PricingSetting
          */
-        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'roundingType\', 0, 1, \'integer\')');
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'roundingType\', 0, 1, \'integer\')'
+        );
     }
 
     private function setOrderSubmittedText()
     {
-        $orderSubmittedTextSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'orderSubmittedText\' AND domain_id = 1;')->fetchColumn(0);
+        $orderSubmittedTextSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'orderSubmittedText\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
         if ($orderSubmittedTextSettingCount > 0) {
             return;
         }
@@ -78,105 +94,184 @@ class Version20180702111020 extends AbstractMigration
                 {payment_instructions} <br />
             </p>
         ';
-        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'orderSubmittedText\', 1, :text, \'string\')', [
-            'text' => $orderSubmittedText,
-        ]);
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'orderSubmittedText\', 1, :text, \'string\')',
+            [
+                'text' => $orderSubmittedText,
+            ]
+        );
     }
 
     private function setMainAdminMail()
     {
-        $mailAdminMailSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'mainAdminMail\' AND domain_id = 1;')->fetchColumn(0);
-        if ($mailAdminMailSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'mainAdminMail\', 1, \'no-reply@shopsys.com\', \'string\')');
+        $mailAdminMailSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'mainAdminMail\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
+        if ($mailAdminMailSettingCount > 0) {
+            return;
         }
+
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'mainAdminMail\', 1, \'no-reply@shopsys.com\', \'string\')'
+        );
     }
 
     private function setMainAdminMailName()
     {
-        $mainAdminMailNameSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'mainAdminMailName\' AND domain_id = 1;')->fetchColumn(0);
-        if ($mainAdminMailNameSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'mainAdminMailName\', 1, \'Shopsys\', \'string\')');
+        $mainAdminMailNameSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'mainAdminMailName\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
+        if ($mainAdminMailNameSettingCount > 0) {
+            return;
         }
+
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'mainAdminMailName\', 1, \'Shopsys\', \'string\')'
+        );
     }
 
     private function setFreeTransportAndPaymentPriceLimit(): void
     {
-        $freeTransportAndPaymentPriceLimitSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'freeTransportAndPaymentPriceLimit\' AND domain_id = 1;')->fetchColumn(0);
-        if ($freeTransportAndPaymentPriceLimitSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'freeTransportAndPaymentPriceLimit\', 1, null, \'none\')');
+        $freeTransportAndPaymentPriceLimitSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'freeTransportAndPaymentPriceLimit\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
+        if ($freeTransportAndPaymentPriceLimitSettingCount > 0) {
+            return;
         }
+
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'freeTransportAndPaymentPriceLimit\', 1, null, \'none\')'
+        );
     }
 
     private function setSeoMetaDescriptionMainPage()
     {
-        $seoMetaDescriptionMainPageSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'seoMetaDescriptionMainPage\' AND domain_id = 1;')->fetchColumn(0);
+        $seoMetaDescriptionMainPageSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'seoMetaDescriptionMainPage\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
         if ($seoMetaDescriptionMainPageSettingCount > 0) {
             return;
         }
 
-        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoMetaDescriptionMainPage\', 1, :text, \'string\')', [
-            'text' => 'Shopsys Framework - the best solution for your eshop.',
-        ]);
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoMetaDescriptionMainPage\', 1, :text, \'string\')',
+            [
+                'text' => 'Shopsys Framework - the best solution for your eshop.',
+            ]
+        );
     }
 
     private function setSeoTitleMainPage()
     {
-        $seoTitleMainPageSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'seoTitleMainPage\' AND domain_id = 1;')->fetchColumn(0);
+        $seoTitleMainPageSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'seoTitleMainPage\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
         if ($seoTitleMainPageSettingCount > 0) {
             return;
         }
 
-        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoTitleMainPage\', 1, :text, \'string\')', [
-            'text' => 'Shopsys Framework - Title page',
-        ]);
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoTitleMainPage\', 1, :text, \'string\')',
+            [
+                'text' => 'Shopsys Framework - Title page',
+            ]
+        );
     }
 
     private function setSeoTitleAddOn()
     {
-        $seoTitleAddOnSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'seoTitleAddOn\' AND domain_id = 1;')->fetchColumn(0);
+        $seoTitleAddOnSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'seoTitleAddOn\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
         if ($seoTitleAddOnSettingCount > 0) {
             return;
         }
 
-        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoTitleAddOn\', 1, :text, \'string\')', [
-            'text' => '| Demo eshop',
-        ]);
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoTitleAddOn\', 1, :text, \'string\')',
+            [
+                'text' => '| Demo eshop',
+            ]
+        );
     }
 
     private function setTermsAndConditionsArticleId()
     {
-        $termsAndConditionsArticleIdSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'termsAndConditionsArticleId\' AND domain_id = 1;')->fetchColumn(0);
-        if ($termsAndConditionsArticleIdSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'termsAndConditionsArticleId\', 1, null, \'integer\')');
+        $termsAndConditionsArticleIdSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'termsAndConditionsArticleId\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
+        if ($termsAndConditionsArticleIdSettingCount > 0) {
+            return;
         }
+
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'termsAndConditionsArticleId\', 1, null, \'integer\')'
+        );
     }
 
     private function setCookiesArticleId()
     {
-        $cookiesArticleIdSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'cookiesArticleId\' AND domain_id = 1;')->fetchColumn(0);
-        if ($cookiesArticleIdSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'cookiesArticleId\', 1, null, \'integer\')');
+        $cookiesArticleIdSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'cookiesArticleId\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
+        if ($cookiesArticleIdSettingCount > 0) {
+            return;
         }
+
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'cookiesArticleId\', 1, null, \'integer\')'
+        );
     }
 
     private function setDomainDataCreated()
     {
-        $domainDataCreatedSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'domainDataCreated\' AND domain_id = 1;')->fetchColumn(0);
-        if ($domainDataCreatedSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'domainDataCreated\', 1, \'true\', \'boolean\')');
+        $domainDataCreatedSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'domainDataCreated\' AND domain_id = 1;'
+        )->fetchColumn(
+            0
+        );
+        if ($domainDataCreatedSettingCount > 0) {
+            return;
         }
+
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'domainDataCreated\', 1, \'true\', \'boolean\')'
+        );
     }
 
     private function setFeedHash()
     {
-        $feedHashSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'feedHash\' AND domain_id = 0;')->fetchColumn(0);
+        $feedHashSettingCount = $this->sql(
+            'SELECT COUNT(*) FROM setting_values WHERE name = \'feedHash\' AND domain_id = 0;'
+        )->fetchColumn(
+            0
+        );
         if ($feedHashSettingCount > 0) {
             return;
         }
 
-        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'feedHash\', 0, :hash, \'string\')', [
-            'hash' => $this->generateTenCharactersHash(),
-        ]);
+        $this->sql(
+            'INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'feedHash\', 0, :hash, \'string\')',
+            [
+                'hash' => $this->generateTenCharactersHash(),
+            ]
+        );
     }
 
     /**

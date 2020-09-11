@@ -54,7 +54,10 @@ class ProductActionViewFacade
         foreach ($products as $product) {
             $productId = $product->getId();
 
-            $productActionViews[$productId] = $this->productActionViewFactory->createFromProduct($product, $absoluteUrlsIndexedByProductId[$productId]);
+            $productActionViews[$productId] = $this->productActionViewFactory->createFromProduct(
+                $product,
+                $absoluteUrlsIndexedByProductId[$productId]
+            );
         }
 
         return $productActionViews;

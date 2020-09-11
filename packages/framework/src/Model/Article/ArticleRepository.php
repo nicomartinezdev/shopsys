@@ -91,7 +91,10 @@ class ArticleRepository
      */
     public function getVisibleArticlesForPlacement($domainId, $placement)
     {
-        $queryBuilder = $this->getVisibleArticlesByDomainIdAndPlacementSortedByPositionQueryBuilder($domainId, $placement);
+        $queryBuilder = $this->getVisibleArticlesByDomainIdAndPlacementSortedByPositionQueryBuilder(
+            $domainId,
+            $placement
+        );
 
         return $queryBuilder->getQuery()->execute();
     }
@@ -109,7 +112,10 @@ class ArticleRepository
         int $limit,
         int $offset
     ): array {
-        $queryBuilder = $this->getVisibleArticlesByDomainIdAndPlacementSortedByPositionQueryBuilder($domainId, $placement)
+        $queryBuilder = $this->getVisibleArticlesByDomainIdAndPlacementSortedByPositionQueryBuilder(
+            $domainId,
+            $placement
+        )
             ->setFirstResult($offset)
             ->setMaxResults($limit);
 

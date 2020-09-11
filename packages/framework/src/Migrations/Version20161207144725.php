@@ -17,8 +17,11 @@ class Version20161207144725 extends AbstractMigration
         foreach ($this->getAllDomainIds() as $domainId) {
             $this->sql('DELETE FROM migrations WHERE version = \'201601207144725\';');
 
-            $phoneHours = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'shopInfoPhoneHours\' AND domain_id = :domainId;
-            ', ['domainId' => $domainId])->fetchColumn(0);
+            $phoneHours = $this->sql(
+                'SELECT COUNT(*) FROM setting_values WHERE name = \'shopInfoPhoneHours\' AND domain_id = :domainId;
+            ',
+                ['domainId' => $domainId]
+            )->fetchColumn(0);
 
             if ($phoneHours > 0) {
                 continue;

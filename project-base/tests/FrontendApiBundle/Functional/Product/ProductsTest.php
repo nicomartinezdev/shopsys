@@ -110,7 +110,12 @@ class ProductsTest extends GraphQlTestCase
         return [
             [
                 'name' => t('Canon EOS 700D', [], 'dataFixtures', $firstDomainLocale),
-                'shortDescription' => t('Canon EOS 700D + EF-S 18-55 mm + 75-300 mm DC III DC III Quality digital camera with CMOS sensor with a resolution of 18 megapixels, which is to take the top photo in a professional style. Innovative DIGIC 5 image processing delivers powerful in any situation. A high sensitivity range up to ISO 12800 lets you capture great images even in dim light', [], 'dataFixtures', $firstDomainLocale),
+                'shortDescription' => t(
+                    'Canon EOS 700D + EF-S 18-55 mm + 75-300 mm DC III DC III Quality digital camera with CMOS sensor with a resolution of 18 megapixels, which is to take the top photo in a professional style. Innovative DIGIC 5 image processing delivers powerful in any situation. A high sensitivity range up to ISO 12800 lets you capture great images even in dim light',
+                    [],
+                    'dataFixtures',
+                    $firstDomainLocale
+                ),
                 'link' => $this->getLocalizedPathOnFirstDomainByRouteName('front_product_detail', ['id' => 8]),
                 'unit' => [
                     'name' => t('pcs', [], 'dataFixtures', $firstDomainLocale),

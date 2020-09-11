@@ -134,7 +134,10 @@ class ProductController extends FrontBaseController
 
         $accessories = $this->listedProductViewFacade->getAllAccessories($product->getId());
         $variants = $this->productOnCurrentDomainFacade->getVariantsForProduct($product);
-        $productMainCategory = $this->categoryFacade->getProductMainCategoryByDomainId($product, $this->domain->getId());
+        $productMainCategory = $this->categoryFacade->getProductMainCategoryByDomainId(
+            $product,
+            $this->domain->getId()
+        );
 
         return $this->render('Front/Content/Product/detail.html.twig', [
             'product' => $product,
@@ -194,7 +197,10 @@ class ProductController extends FrontBaseController
             'category' => $category,
             'filterForm' => $filterForm->createView(),
             'filterFormSubmitted' => $filterForm->isSubmitted(),
-            'visibleChildren' => $this->categoryFacade->getAllVisibleChildrenByCategoryAndDomainId($category, $this->domain->getId()),
+            'visibleChildren' => $this->categoryFacade->getAllVisibleChildrenByCategoryAndDomainId(
+                $category,
+                $this->domain->getId()
+            ),
             'priceRange' => $productFilterConfig->getPriceRange(),
         ];
 
