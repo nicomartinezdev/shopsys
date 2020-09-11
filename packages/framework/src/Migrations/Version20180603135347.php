@@ -36,11 +36,13 @@ class Version20180603135347 extends AbstractMigration
         $mailTemplateCount = $this->sql('SELECT count(*) FROM mail_templates WHERE name = :mailTemplateName', [
             'mailTemplateName' => $mailTemplateName,
         ])->fetchColumn(0);
-        if ($mailTemplateCount <= 0) {
-            $this->sql('INSERT INTO mail_templates (name, domain_id, send_mail) VALUES (:mailTemplateName, 1, :sendMail)', [
-                'mailTemplateName' => $mailTemplateName,
-                'sendMail' => $sendMail,
-            ]);
+        if ($mailTemplateCount > 0) {
+            return;
         }
+
+        $this->sql('INSERT INTO mail_templates (name, domain_id, send_mail) VALUES (:mailTemplateName, 1, :sendMail)', [
+            'mailTemplateName' => $mailTemplateName,
+            'sendMail' => $sendMail,
+        ]);
     }
 }

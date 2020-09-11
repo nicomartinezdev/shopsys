@@ -590,14 +590,16 @@ class OrderFacade
                 $product
             );
 
-            if ($quantifiedItemDiscount !== null) {
-                $this->addOrderItemDiscount(
-                    $orderItem,
-                    $quantifiedItemDiscount,
-                    $locale,
-                    (float)$orderPreview->getPromoCodeDiscountPercent()
-                );
+            if ($quantifiedItemDiscount === null) {
+                continue;
             }
+
+            $this->addOrderItemDiscount(
+                $orderItem,
+                $quantifiedItemDiscount,
+                $locale,
+                (float)$orderPreview->getPromoCodeDiscountPercent()
+            );
         }
     }
 

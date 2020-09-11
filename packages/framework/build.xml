@@ -1178,7 +1178,7 @@
         </if>
     </target>
 
-    <target name="tests-unit" depends="production-protection,clean,tests-unit-jest" description="Runs unit tests.">
+    <target name="tests-unit" depends="production-protection,clean" description="Runs unit tests.">
         <exec executable="${path.phpunit.executable}" logoutput="true" passthru="true" checkreturn="true">
             <arg value="--colors=always"/>
             <arg value="--testsuite"/>

@@ -297,11 +297,13 @@ class PersonalInfoFormType extends AbstractType
             ])
             ->add('save', SubmitType::class);
 
-        if ($this->heurekaFacade->isHeurekaShopCertificationActivated($this->domain->getId())) {
-            $builder->add('disallowHeurekaVerifiedByCustomers', CheckboxType::class, [
-                'required' => false,
-            ]);
+        if (!$this->heurekaFacade->isHeurekaShopCertificationActivated($this->domain->getId())) {
+            return;
         }
+
+        $builder->add('disallowHeurekaVerifiedByCustomers', CheckboxType::class, [
+            'required' => false,
+        ]);
     }
 
     /**

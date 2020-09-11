@@ -17,14 +17,16 @@ class ContainsValidator extends ConstraintValidator
             throw new \Symfony\Component\Validator\Exception\UnexpectedTypeException($constraint, Contains::class);
         }
 
-        if (mb_strpos($value, $constraint->needle) === false) {
-            $this->context->addViolation(
-                $constraint->message,
-                [
-                    '{{ value }}' => $this->formatValue($value),
-                    '{{ needle }}' => $this->formatValue($constraint->needle),
-                ]
-            );
+        if (mb_strpos($value, $constraint->needle) !== false) {
+            return;
         }
+
+        $this->context->addViolation(
+            $constraint->message,
+            [
+                '{{ value }}' => $this->formatValue($value),
+                '{{ needle }}' => $this->formatValue($constraint->needle),
+            ]
+        );
     }
 }

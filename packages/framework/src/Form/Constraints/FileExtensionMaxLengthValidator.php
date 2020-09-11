@@ -26,14 +26,16 @@ class FileExtensionMaxLengthValidator extends ConstraintValidator
             throw new \Symfony\Component\Validator\Exception\ConstraintDefinitionException('Limit must be integer and greater than zero.');
         }
 
-        if (mb_strlen($value->getExtension()) > $constraint->limit) {
-            $this->context->addViolation(
-                $constraint->message,
-                [
-                    '{{ value }}' => $this->formatValue($value->getExtension()),
-                    '{{ limit }}' => $this->formatValue($constraint->limit),
-                ]
-            );
+        if (mb_strlen($value->getExtension()) <= $constraint->limit) {
+            return;
         }
+
+        $this->context->addViolation(
+            $constraint->message,
+            [
+                '{{ value }}' => $this->formatValue($value->getExtension()),
+                '{{ limit }}' => $this->formatValue($constraint->limit),
+            ]
+        );
     }
 }

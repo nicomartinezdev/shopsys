@@ -213,14 +213,16 @@ class DefaultController extends AdminBaseController
             );
         }
 
-        if ($this->setting->get(Setting::DEFAULT_AVAILABILITY_IN_STOCK) === 0) {
-            $this->addErrorFlashTwig(
-                t('<a href="{{ url }}">Default product in stock availability is not set.</a>'),
-                [
-                    'url' => $this->generateUrl('admin_availability_list'),
-                ]
-            );
+        if ($this->setting->get(Setting::DEFAULT_AVAILABILITY_IN_STOCK) !== 0) {
+            return;
         }
+
+        $this->addErrorFlashTwig(
+            t('<a href="{{ url }}">Default product in stock availability is not set.</a>'),
+            [
+                'url' => $this->generateUrl('admin_availability_list'),
+            ]
+        );
     }
 
     /**

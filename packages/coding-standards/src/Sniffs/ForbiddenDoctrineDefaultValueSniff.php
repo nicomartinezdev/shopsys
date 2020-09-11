@@ -32,13 +32,15 @@ class ForbiddenDoctrineDefaultValueSniff implements Sniff
 
             $content = TokenHelper::getContent($file, $docBlockOpenTagPosition, $docBlockToken['comment_closer']);
 
-            if ($this->annotationContainsDefaultValue($content)) {
-                $file->addError(
-                    'Default value of entity properties cannot be used.',
-                    $docBlockOpenTagPosition,
-                    self::class
-                );
+            if (!$this->annotationContainsDefaultValue($content)) {
+                continue;
             }
+
+            $file->addError(
+                'Default value of entity properties cannot be used.',
+                $docBlockOpenTagPosition,
+                self::class
+            );
         }
     }
 

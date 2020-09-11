@@ -33,10 +33,12 @@ class MoneyRangeValidator extends ConstraintValidator
                 '{{ limit }}' => $constraint->max->getAmount(),
             ]);
         }
-        if ($constraint->min !== null && $value->isLessThan($constraint->min)) {
-            $this->context->addViolation($constraint->minMessage, [
-                '{{ limit }}' => $constraint->min->getAmount(),
-            ]);
+        if ($constraint->min === null || !$value->isLessThan($constraint->min)) {
+            return;
         }
+
+        $this->context->addViolation($constraint->minMessage, [
+            '{{ limit }}' => $constraint->min->getAmount(),
+        ]);
     }
 }

@@ -26,14 +26,16 @@ class FileAllowedExtensionValidator extends ConstraintValidator
             throw new \Symfony\Component\Validator\Exception\ConstraintDefinitionException('Extensions parameter of FileAllowedExtensionsValidator must be array.');
         }
 
-        if (!in_array(strtolower($value->getExtension()), $constraint->extensions, true)) {
-            $this->context->addViolation(
-                $constraint->message,
-                [
-                    '{{ value }}' => $this->formatValue($value->getExtension()),
-                    '{{ extensions }}' => $this->formatValue(implode(', ', $constraint->extensions)),
-                ]
-            );
+        if (in_array(strtolower($value->getExtension()), $constraint->extensions, true)) {
+            return;
         }
+
+        $this->context->addViolation(
+            $constraint->message,
+            [
+                '{{ value }}' => $this->formatValue($value->getExtension()),
+                '{{ extensions }}' => $this->formatValue(implode(', ', $constraint->extensions)),
+            ]
+        );
     }
 }

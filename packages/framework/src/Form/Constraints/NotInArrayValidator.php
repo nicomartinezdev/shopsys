@@ -28,13 +28,15 @@ class NotInArrayValidator extends ConstraintValidator
             );
         }
 
-        if (in_array($value, $constraint->array, false)) {
-            $this->context->addViolation(
-                $constraint->message,
-                [
-                    '{{ array }}' => implode(', ', $constraint->array),
-                ]
-            );
+        if (!in_array($value, $constraint->array, false)) {
+            return;
         }
+
+        $this->context->addViolation(
+            $constraint->message,
+            [
+                '{{ array }}' => implode(', ', $constraint->array),
+            ]
+        );
     }
 }

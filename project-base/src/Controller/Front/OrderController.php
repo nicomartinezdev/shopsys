@@ -342,14 +342,16 @@ class OrderController extends FrontBaseController
                 ]
             );
         }
-        if ($transportAndPaymentCheckResult->isPaymentPriceChanged()) {
-            $this->addInfoFlashTwig(
-                t('The price of payment {{ paymentName }} changed during ordering process. Check your order, please.'),
-                [
-                    'paymentName' => $orderData->payment->getName(),
-                ]
-            );
+        if (!$transportAndPaymentCheckResult->isPaymentPriceChanged()) {
+            return;
         }
+
+        $this->addInfoFlashTwig(
+            t('The price of payment {{ paymentName }} changed during ordering process. Check your order, please.'),
+            [
+                'paymentName' => $orderData->payment->getName(),
+            ]
+        );
     }
 
     public function saveOrderFormAction()

@@ -37,44 +37,50 @@ class Version20180702111020 extends AbstractMigration
     private function setInputPriceType()
     {
         $inputPriceTypeSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'inputPriceType\' AND domain_id = 0;')->fetchColumn(0);
-        if ($inputPriceTypeSettingCount <= 0) {
-            /**
-             * value 2 stands for INPUT_PRICE_TYPE_WITHOUT_VAT
-             * @see \Shopsys\FrameworkBundle\Model\Pricing\PricingSetting
-             */
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'inputPriceType\', 0, 2, \'integer\')');
+        if ($inputPriceTypeSettingCount > 0) {
+            return;
         }
+
+        /**
+         * value 2 stands for INPUT_PRICE_TYPE_WITHOUT_VAT
+         * @see \Shopsys\FrameworkBundle\Model\Pricing\PricingSetting
+         */
+        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'inputPriceType\', 0, 2, \'integer\')');
     }
 
     private function setRoundingType()
     {
         $roundingTypeSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'roundingType\' AND domain_id = 0;')->fetchColumn(0);
-        if ($roundingTypeSettingCount <= 0) {
-            /**
-             * value 3 stands for ROUNDING_TYPE_HUNDREDTHS
-             * @see \Shopsys\FrameworkBundle\Model\Pricing\PricingSetting
-             */
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'roundingType\', 0, 1, \'integer\')');
+        if ($roundingTypeSettingCount > 0) {
+            return;
         }
+
+        /**
+         * value 3 stands for ROUNDING_TYPE_HUNDREDTHS
+         * @see \Shopsys\FrameworkBundle\Model\Pricing\PricingSetting
+         */
+        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'roundingType\', 0, 1, \'integer\')');
     }
 
     private function setOrderSubmittedText()
     {
         $orderSubmittedTextSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'orderSubmittedText\' AND domain_id = 1;')->fetchColumn(0);
-        if ($orderSubmittedTextSettingCount <= 0) {
-            $orderSubmittedText = '
-                <p>
-                    Order number {number} has been sent, thank you for your purchase.
-                    We will contact you about next order status. <br /><br />
-                    <a href="{order_detail_url}">Track</a> the status of your order. <br />
-                    {transport_instructions} <br />
-                    {payment_instructions} <br />
-                </p>
-            ';
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'orderSubmittedText\', 1, :text, \'string\')', [
-                'text' => $orderSubmittedText,
-            ]);
+        if ($orderSubmittedTextSettingCount > 0) {
+            return;
         }
+
+        $orderSubmittedText = '
+            <p>
+                Order number {number} has been sent, thank you for your purchase.
+                We will contact you about next order status. <br /><br />
+                <a href="{order_detail_url}">Track</a> the status of your order. <br />
+                {transport_instructions} <br />
+                {payment_instructions} <br />
+            </p>
+        ';
+        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'orderSubmittedText\', 1, :text, \'string\')', [
+            'text' => $orderSubmittedText,
+        ]);
     }
 
     private function setMainAdminMail()
@@ -104,31 +110,37 @@ class Version20180702111020 extends AbstractMigration
     private function setSeoMetaDescriptionMainPage()
     {
         $seoMetaDescriptionMainPageSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'seoMetaDescriptionMainPage\' AND domain_id = 1;')->fetchColumn(0);
-        if ($seoMetaDescriptionMainPageSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoMetaDescriptionMainPage\', 1, :text, \'string\')', [
-                'text' => 'Shopsys Framework - the best solution for your eshop.',
-            ]);
+        if ($seoMetaDescriptionMainPageSettingCount > 0) {
+            return;
         }
+
+        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoMetaDescriptionMainPage\', 1, :text, \'string\')', [
+            'text' => 'Shopsys Framework - the best solution for your eshop.',
+        ]);
     }
 
     private function setSeoTitleMainPage()
     {
         $seoTitleMainPageSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'seoTitleMainPage\' AND domain_id = 1;')->fetchColumn(0);
-        if ($seoTitleMainPageSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoTitleMainPage\', 1, :text, \'string\')', [
-                'text' => 'Shopsys Framework - Title page',
-            ]);
+        if ($seoTitleMainPageSettingCount > 0) {
+            return;
         }
+
+        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoTitleMainPage\', 1, :text, \'string\')', [
+            'text' => 'Shopsys Framework - Title page',
+        ]);
     }
 
     private function setSeoTitleAddOn()
     {
         $seoTitleAddOnSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'seoTitleAddOn\' AND domain_id = 1;')->fetchColumn(0);
-        if ($seoTitleAddOnSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoTitleAddOn\', 1, :text, \'string\')', [
-                'text' => '| Demo eshop',
-            ]);
+        if ($seoTitleAddOnSettingCount > 0) {
+            return;
         }
+
+        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'seoTitleAddOn\', 1, :text, \'string\')', [
+            'text' => '| Demo eshop',
+        ]);
     }
 
     private function setTermsAndConditionsArticleId()
@@ -158,11 +170,13 @@ class Version20180702111020 extends AbstractMigration
     private function setFeedHash()
     {
         $feedHashSettingCount = $this->sql('SELECT COUNT(*) FROM setting_values WHERE name = \'feedHash\' AND domain_id = 0;')->fetchColumn(0);
-        if ($feedHashSettingCount <= 0) {
-            $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'feedHash\', 0, :hash, \'string\')', [
-                'hash' => $this->generateTenCharactersHash(),
-            ]);
+        if ($feedHashSettingCount > 0) {
+            return;
         }
+
+        $this->sql('INSERT INTO setting_values (name, domain_id, value, type) VALUES (\'feedHash\', 0, :hash, \'string\')', [
+            'hash' => $this->generateTenCharactersHash(),
+        ]);
     }
 
     /**
