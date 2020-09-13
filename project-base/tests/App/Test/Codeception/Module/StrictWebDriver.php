@@ -57,7 +57,7 @@ class StrictWebDriver extends WebDriver
     }
 
     /**
-     * @deprecated
+     * @deprecated replaced by strict alternatives: clickByName() and clickByText()
      * @param mixed $link
      * @param mixed|null $context
      */
@@ -135,7 +135,7 @@ class StrictWebDriver extends WebDriver
     }
 
     /**
-     * @deprecated
+     * @deprecated replaced by strict alternative fillFieldByName()
      * @param mixed $field
      * @param mixed $value
      */
@@ -198,7 +198,7 @@ class StrictWebDriver extends WebDriver
     }
 
     /**
-     * @deprecated
+     * @deprecated replaced by strict alternatives seeCheckboxIsCheckedById()
      * @param mixed $checkbox
      */
     public function seeCheckboxIsChecked($checkbox)
@@ -245,7 +245,7 @@ class StrictWebDriver extends WebDriver
     }
 
     /**
-     * @deprecated
+     * @deprecated replaced by strict alternatives dontSeeCheckboxIsCheckedById()
      * @param mixed $checkbox
      */
     public function dontSeeCheckboxIsChecked($checkbox)
@@ -292,7 +292,7 @@ class StrictWebDriver extends WebDriver
     }
 
     /**
-     * @deprecated
+     * @deprecated replaced by strict alternative checkOptionById()
      * @param mixed $option
      */
     public function checkOption($option)
@@ -359,7 +359,7 @@ class StrictWebDriver extends WebDriver
     }
 
     /**
-     * @deprecated
+     * @deprecated replaced by strict alternative seeInFieldByName()
      * @param mixed $field
      * @param mixed $value
      */
@@ -404,7 +404,7 @@ class StrictWebDriver extends WebDriver
     }
 
     /**
-     * @deprecated
+     * @deprecated replaced by strict alternative pressKeyByElement()
      * @param mixed $element
      * @param mixed $char
      */
