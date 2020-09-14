@@ -238,7 +238,6 @@ class CartFacadeTest extends TransactionFunctionalTestCase
 
     /**
      * @param \Shopsys\FrameworkBundle\Model\Customer\User\CustomerUserIdentifier $customerUserIdentifier
-     *
      * @return \Shopsys\FrameworkBundle\Model\Cart\CartFacade
      */
     private function createCartFacade(CustomerUserIdentifier $customerUserIdentifier)
@@ -262,7 +261,6 @@ class CartFacadeTest extends TransactionFunctionalTestCase
 
     /**
      * @param \Shopsys\FrameworkBundle\Model\Customer\User\CustomerUserIdentifier $customerUserIdentifier
-     *
      * @return \Shopsys\FrameworkBundle\Model\Cart\Cart
      */
     private function getCartByCustomerUserIdentifier(CustomerUserIdentifier $customerUserIdentifier)
@@ -295,7 +293,6 @@ class CartFacadeTest extends TransactionFunctionalTestCase
 
     /**
      * @param \Shopsys\FrameworkBundle\Model\Customer\User\CustomerUserIdentifier $customerUserIdentifier
-     *
      * @return \PHPUnit\Framework\MockObject\MockObject
      */
     private function getCustomerUserIdentifierFactoryMock(CustomerUserIdentifier $customerUserIdentifier)

@@ -47,6 +47,7 @@ class Version20180702111020 extends AbstractMigration
 
         /**
          * value 2 stands for INPUT_PRICE_TYPE_WITHOUT_VAT
+         *
          * @see \Shopsys\FrameworkBundle\Model\Pricing\PricingSetting
          */
         $this->sql(
@@ -67,6 +68,7 @@ class Version20180702111020 extends AbstractMigration
 
         /**
          * value 3 stands for ROUNDING_TYPE_HUNDREDTHS
+         *
          * @see \Shopsys\FrameworkBundle\Model\Pricing\PricingSetting
          */
         $this->sql(
@@ -276,6 +278,7 @@ class Version20180702111020 extends AbstractMigration
 
     /**
      * Copy pasted, @see \Shopsys\FrameworkBundle\Component\String\HashGenerator::generateHash()
+     *
      * @return string
      */
     private function generateTenCharactersHash()

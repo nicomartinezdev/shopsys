@@ -8,7 +8,6 @@ namespace Shopsys\ReadModelBundle\Image;
  * @experimental
  *
  * Class representing images in frontend
- *
  * @see https://docs.shopsys.com/en/latest/model/introduction-to-read-model/
  */
 class ImageView
