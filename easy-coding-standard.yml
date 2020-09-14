@@ -1,13 +1,177 @@
 imports:
-    - { resource: 'packages/coding-standards/easy-coding-standard.yml' }
     - { resource: 'packages/*/easy-coding-standard.yml' }
     - { resource: 'project-base/easy-coding-standard.yml' }
 
+services:
+    _defaults:
+        autowire: true
+
+    # helper services ↓
+    PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer: ~
+    Shopsys\CodingStandards\Helper\PhpToDocTypeTransformer: ~
+    Shopsys\CodingStandards\Helper\FqnNameResolver: ~
+    PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
+    Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\IndentDetector: ~
+
+    # Slevomat Checkers
+    SlevomatCodingStandard\Sniffs\Commenting\InlineDocCommentDeclarationSniff: ~
+    SlevomatCodingStandard\Sniffs\TypeHints\NullableTypeForNullDefaultValueSniff: ~
+    SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff: ~
+
+    # Shopsys Checkers
+    Shopsys\CodingStandards\CsFixer\ForbiddenDumpFixer: ~
+    Shopsys\CodingStandards\CsFixer\MissingButtonTypeFixer: ~
+    Shopsys\CodingStandards\CsFixer\OrmJoinColumnRequireNullableFixer: ~
+    Shopsys\CodingStandards\CsFixer\RedundantMarkDownTrailingSpacesFixer: ~
+    Shopsys\CodingStandards\Finder\FileFinder: ~
+    Shopsys\CodingStandards\Sniffs\ObjectIsCreatedByFactorySniff: ~
+    Shopsys\CodingStandards\Sniffs\ForbiddenDumpSniff: ~
+    Shopsys\CodingStandards\Sniffs\ForbiddenExitSniff: ~
+    Shopsys\CodingStandards\Sniffs\ForbiddenSuperGlobalSniff: ~
+    Shopsys\CodingStandards\Sniffs\ForbiddenDoctrineInheritanceSniff: ~
+    Shopsys\CodingStandards\Sniffs\ForbiddenDoctrineDefaultValueSniff: ~
+    # method arguments and variables should be $camelCase
+    Shopsys\CodingStandards\Sniffs\ValidVariableNameSniff: ~
+    # add all @param, @return and @var annotations, in FQN
+    Shopsys\CodingStandards\CsFixer\Phpdoc\MissingParamAnnotationsFixer: ~
+    Shopsys\CodingStandards\CsFixer\Phpdoc\MissingReturnAnnotationFixer: ~
+    Shopsys\CodingStandards\CsFixer\Phpdoc\OrderedParamAnnotationsFixer: ~
+    SlevomatCodingStandard\Sniffs\Namespaces\FullyQualifiedClassNameInAnnotationSniff: ~
+
+    # Custom Shopsys standards
+    PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\ForLoopShouldBeWhileLoopSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\ForLoopWithTestFunctionCallSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\JumbledIncrementerSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnconditionalIfStatementSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting\TodoSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting\FixmeSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\NoSpaceAfterCastSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\CallTimePassByReferenceSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Metrics\CyclomaticComplexitySniff:
+        absoluteComplexity: 13
+    PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\ConstructorNameSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\DiscourageGotoSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\NoSilencedErrorsSniff: ~
+    PHP_CodeSniffer\Standards\MySource\Sniffs\PHP\GetRequestDataSniff: ~
+    PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\InlineCommentSniff: ~
+    PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\DisallowMultipleAssignmentsSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\DisallowSizeFunctionsInLoopsSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\EvalSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\GlobalKeywordSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\InnerFunctionsSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\LowercasePHPFunctionsSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\NonExecutableCodeSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\StaticThisUsageSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings\DoubleQuoteUsageSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\CastSpacingSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LogicalOperatorSpacingSniff: ~
+    PhpCsFixer\Fixer\LanguageConstruct\CombineConsecutiveUnsetsFixer: ~
+    PhpCsFixer\Fixer\Alias\EregToPregFixer: ~
+    PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer: ~
+    PhpCsFixer\Fixer\ControlStructure\IncludeFixer: ~
+    PhpCsFixer\Fixer\PhpTag\LinebreakAfterOpeningTagFixer: ~
+    PhpCsFixer\Fixer\Casing\NativeFunctionCasingFixer: ~
+    PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer: ~
+    PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer: ~
+    PhpCsFixer\Fixer\Whitespace\NoExtraConsecutiveBlankLinesFixer: ~
+    PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer: ~
+    PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer: ~
+    PhpCsFixer\Fixer\ArrayNotation\NoMultilineWhitespaceAroundDoubleArrowFixer: ~
+    PhpCsFixer\Fixer\Semicolon\NoMultilineWhitespaceBeforeSemicolonsFixer: ~
+    PhpCsFixer\Fixer\CastNotation\NoShortBoolCastFixer: ~
+    PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer: ~
+    PhpCsFixer\Fixer\ControlStructure\NoTrailingCommaInListCallFixer: ~
+    PhpCsFixer\Fixer\ReturnNotation\NoUselessReturnFixer: ~
+    PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer: ~
+    PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer: ~
+    PhpCsFixer\Fixer\ArrayNotation\NormalizeIndexBraceFixer: ~
+    PhpCsFixer\Fixer\Operator\ObjectOperatorWithoutWhitespaceFixer: ~
+    PhpCsFixer\Fixer\Import\OrderedImportsFixer:
+        sort_algorithm: alpha
+        imports_order:
+            - class
+            - function
+            - const
+    PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocNoUselessInheritdocFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocNoAliasTagFixer:
+        type: var
+    PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocNoAccessFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocNoPackageFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocOrderFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocScalarFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer: ~
+    PhpCsFixer\Fixer\Semicolon\SemicolonAfterInstructionFixer: ~
+    PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer: ~
+    PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer: ~
+    PhpCsFixer\Fixer\Comment\SingleLineCommentStyleFixer:
+        comment_types:
+            - hash
+    PhpCsFixer\Fixer\Operator\StandardizeNotEqualsFixer: ~
+    PhpCsFixer\Fixer\Strict\StrictParamFixer: ~
+    # keep 1 empty line between constants, properties and methods
+    # keep 0 empty lines after class open bracket {
+    # keep 0 empty lines before class end bracket }
+    PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer:
+        elements:
+            - 'property'
+            - 'method'
+
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ValidClassNameSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\UpperNoWhitespaceBeforeCommaInArrayFixerCaseConstantNameSniff: ~
+
+    # Code Metrics
+    ObjectCalisthenics\Sniffs\Files\ClassTraitAndInterfaceLengthSniff:
+        maxLength: 550
+    ObjectCalisthenics\Sniffs\Files\FunctionLengthSniff:
+        maxLength: 60
+    ObjectCalisthenics\Sniffs\Metrics\PropertyPerClassLimitSniff:
+        maxCount: 30
+
+    PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff: ~
+    SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEmptySniff: ~
+    SlevomatCodingStandard\Sniffs\ControlStructures\EarlyExitSniff:
+        ignoreStandaloneIfInScope: true
+        ignoreOneLineTrailingIf: true
+    SlevomatCodingStandard\Sniffs\Classes\ParentCallSpacingSniff:
+        linesCountBeforeParentCall: 1
+        linesCountAfterParentCall: 1
+    SlevomatCodingStandard\Sniffs\ControlStructures\RequireMultiLineConditionSniff:
+        minLineLength: 120
+        alwaysSplitAllConditionParts: true
+    SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff:
+        allowPartialUses: true
+    SlevomatCodingStandard\Sniffs\Functions\RequireMultiLineCallSniff:
+        minLineLength: 120
+    SlevomatCodingStandard\Sniffs\Commenting\DeprecatedAnnotationDeclarationSniff: ~
+    SlevomatCodingStandard\Sniffs\Commenting\DocCommentSpacingSniff:
+        linesCountBetweenDifferentAnnotationsTypes: 0
+    SlevomatCodingStandard\Sniffs\ControlStructures\UselessIfConditionWithReturnSniff: ~
+
 parameters:
     sets:
+        - 'php70'
+        - 'php71'
         - 'psr12'
         - 'dead-code'
         - 'clean-code'
+        - 'array'
+        - 'comments'
+        - 'control-structures'
+        - 'docblock'
+        - 'namespaces'
+        - 'strict'
     skip:
         PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer:
             - 'packages/*'
@@ -20,3 +184,30 @@ parameters:
         Shopsys\CodingStandards\Sniffs\ForceLateStaticBindingForProtectedConstantsSniff:
             - '*/src/*'
             - '*/tests/App/*'
+
+        # some variables are just because of the right annotation
+        PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer: ~
+
+        SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff:
+            # FormInterface is used as an argument to foreach with unused iterated value
+            - 'packages/framework/src/Component/Form/ResizeFormListener.php'
+
+        # rule is applied via `control-structures` set but we do not want to use it for now
+        PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~
+
+        # rule is applied via `docblock` set but we do not want to use it for now
+        # remove variable name from @var and @type annotations
+        PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer: ~
+
+        # rule is applied via `docblock` set but we do not want to use it for now
+        #remove inheritdoc
+        PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer: ~
+
+        # rule is applied via `php70` set but we cannot use it until next major because of possible BC breaks
+        SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff: ~
+
+        # rule is applied via `php71` set but we cannot use it until next major because of possible BC breaks
+        PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer: ~
+
+        ObjectCalisthenics\Sniffs\Files\FunctionLengthSniff:
+            - 'utils/releaser/src/ReleaseWorker/Release/CreateAndPushGitTagsExceptProjectBaseReleaseWorker.php'
