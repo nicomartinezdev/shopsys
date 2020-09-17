@@ -39,21 +39,22 @@ git fetch --all --no-tags
 ### 3. Building the monorepo
 
 Then you can build your monorepo using `monorepo_build.sh`.
+You will need to specify a default branch name, i.e `master`, `main`, `trunk`
 Just list the names of all your previously added remotes as arguments.
 Optionally you can specify a directory where the repository will be located by providing `<remote-name>:<subdirectory>`, otherwise remote name will be used.
 
 The command will rewrite history of all mentioned repositories as if they were developed in separate subdirectories.
 
-Only branches `master` will be merged together, other branches will be kept only from first package to avoid possible branch name conflicts.
+Only default branches (`master`, `trunk`, `main`) will be merged together, other branches will be kept only from first package to avoid possible branch name conflicts.
 
 ```
 ~/monorepo-tools/monorepo_build.sh \
-    main-repository package-alpha:packages/alpha package-beta:packages/beta
+    main main-repository package-alpha:packages/alpha package-beta:packages/beta
 ```
 
 This may take a while, depending on the size of your repositories.
 
-Now your `master` branch should contain all packages in separate directories. For our example it would mean:
+Now your default branch should contain all packages in separate directories. For our example it would mean:
 * **main-repository/** - contains repository *vendor/main-repository*
 * **packages/**
   * **alpha/** - contains repository *vendor/alpha*
@@ -108,7 +109,7 @@ For detailed information go to the scripts themselves and read the comments.
 
 Build monorepo from specified remotes. The remotes must be already added to your repository and fetched.
 
-Usage: `monorepo_build.sh <remote-name>[:<subdirectory>] <remote-name>[:<subdirectory>] ...`
+Usage: `monorepo_build.sh <default-branch-name> <remote-name>[:<subdirectory>] <remote-name>[:<subdirectory>] ...`
 
 ### [monorepo_split.sh](./monorepo_split.sh)
 

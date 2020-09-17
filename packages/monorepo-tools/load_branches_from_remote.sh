@@ -7,6 +7,7 @@
 # Example: load_branches_from_remote.sh origin
 
 REMOTE=$1
+DEFAULT_BRANCH=$2
 echo "Loading all branches from the remote '$REMOTE' (all local branches are deleted)"
 # Checking out orphan commit so it 's possible to delete current branch
 git checkout --orphan void
@@ -20,5 +21,5 @@ for REMOTE_BRANCH in $(git branch -r|grep $REMOTE/); do
     git branch -q $BRANCH $REMOTE_BRANCH
     git branch --unset-upstream $BRANCH
 done
-git checkout -f master
+git checkout -f $DEFAULT_BRANCH
 

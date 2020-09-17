@@ -2,7 +2,7 @@
 
 # Add repositories to a monorepo from specified remotes
 # You must first add the remotes by "git remote add <remote-name> <repository-url>" and fetch from them by "git fetch --all"
-# It will merge master branches of the monorepo and all remotes together while keeping all current branches in monorepo intact
+# It will merge DEFAULT branches of the monorepo and all remotes together while keeping all current branches in monorepo intact
 # If subdirectory is not specified remote name will be used instead
 #
 # Usage: monorepo_add.sh <remote-name>[:<subdirectory>] <remote-name>[:<subdirectory>] ...
